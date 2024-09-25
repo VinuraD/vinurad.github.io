@@ -1,7 +1,4 @@
 ---
-layout: default
-title: Vinura (Dhananjaya) Galwaduge
+layout: home
 ---
 
-
-This is a sample `index.md` page for a Jekyll-powered
