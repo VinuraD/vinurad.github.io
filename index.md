@@ -1,9 +1,9 @@
 ---
 layout: default
 ---
-# Vinura Galwaduge
+<!-- # Vinura Galwaduge
 
-Welcome to My Blog.
+Welcome to My Blog. -->
 
 ### Posts:
 
