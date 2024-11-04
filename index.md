@@ -24,3 +24,5 @@ I have some earlier posts on [Medium](https://vinurad13.medium.com/), about rand
 
 ### Random
 
+- [(Im)perfect Symmetry](./random/2024-11-03-Pinery.md)
+
