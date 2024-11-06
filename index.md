@@ -26,3 +26,5 @@ I have some earlier posts on [Medium](https://vinurad13.medium.com/), about rand
 
 - [(Im)perfect Symmetry](./random/2024-11-03-Pinery.md)
 
+<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=IS68amXisjjj1NtFb9AlJdM9_8-mOlbdvYSWGaYr204&cl=ffffff&w=a"></script>
+
