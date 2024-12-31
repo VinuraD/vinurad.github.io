@@ -2,8 +2,6 @@
 layout: default
 permalink: /Causal-Generative-Modeling/
 ---
-# Causal Geneative Modelling
-
 ## Background and Motivation
 *This post is an excerpt of concepts related to the use of causality in generative modeling, based on the literature.
 
@@ -19,7 +17,11 @@ Generative modeling has one core task which helps in proper data generation - re
 However, most models suffer from a problem called unidentifiability problem. Unidentifiability problem refers to the fact that we are unable to find these independent sources of variation from the given datasets. There are several proposals to learn such disentangled representations ($\beta$-VAE is a well-known example) but they suffer from identifiability problem or they rely on assumptions such as data is IID and factors of variation are independent. Although we use the independence of factors to help in the idenitifiability problem, it may not be realistic as most real-world data can have interdependent factors of variation. Hence, a different perspective of the problem can help us reach a more pragmatic approach; using causal models.
 
 ## Causal Models and representation learning
-Causal models represent the cause-effect relationships between variables governing a data generating process. The variables can be endogeneous (observed), exogeneous (unobserved), and noise terms. Usually these relationships can be represented in the form of a graph (called Structural Causal Model (SCM)). A typical SCM is shown in Figure 1. In fact, we can see that independent factor scenario is a special case of SCMs (Figure 2). 
+Causal models represent the cause-effect relationships between variables governing a data generating process. The variables can be endogeneous (observed), exogeneous (unobserved), and noise terms. Usually these relationships can be represented in the form of a graph (called Structural Causal Model (SCM)). A typical SCM is shown in Figure 1. In fact, we can see that independent factor scenario is a special case of SCMs (Figure 2)(Z represent exogeneous variables, and X represent endogeneous). 
+
+![Figure 1](./images/scm1.png)
+
+![Figure 2](./images/scm2.png)
 
 We then come up with a paradigm called Causal representation learning (CRL). The goal of CRL is to learn factors that are causally related, and meaningful (interpretability comes free if we meet these criteria).
 

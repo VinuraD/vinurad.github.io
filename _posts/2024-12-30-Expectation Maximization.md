@@ -2,7 +2,6 @@
 layout: default
 permalink: /Expectation-Maximization/
 ---
-# Expectation Maximization
 There are enough tutorials,guides, and lectures about expectation maximization (EM) on the internet. This will be yet another, but a short write-up on EM, based on my understanding of the algorithm. An example code with 1D, Mixture of Gaussians is available of my [Github](https://github.com/VinuraD/gen_modeling).
 
 ## What and Why?
