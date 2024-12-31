@@ -11,6 +11,12 @@ Welcome to My Blog. -->
     - [Practical VAE](./_posts/2024-11-03-Practical-VAE.md)
     - [Training CVAE](./404).
         - Training VAEs/CVAEs for tabular data could be tricky (at least for me). In this post, I'm compiling a list of techniques I used in my project(s) for training CVAEs for tabular data.
+    - Generative Modeling
+        - Basics
+            - [Expectation Maximization](./_posts/2024-12-30-EM.md)
+            - [pPCA](./_posts/2024-12-30-ppca.md)
+        - Causal Generative Modeling
+            - [Causal Generative Modeling - a short intro](./_posts/2024-12-23-Causal-Gen.md)
 
 - MLOps
 
