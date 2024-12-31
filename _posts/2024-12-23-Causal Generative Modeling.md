@@ -33,13 +33,12 @@ Evaluation metrics such as Disentanglement, Completeness and Informativeness (DC
 
 ## Controllable Counterfactual generation
 Counterfactual generation is of major importance as a method of data augmentation, a gauge of reasoning ability and a mode of explanation (my main interest lies in counterfactual generation too). Controllable counterfactual generation is a case where we can intervene on desired attributes to generate counterfactual data samples using generative modeling, even in totally novel contexts (e.g. for image domain - Lions with green mane). Most of the controllable counterfactual generation proposals are based on GANs and Difussion models, and for image data. Some of such models are,
-1. CausalGAN
-2. DCM
+1. CausalGAN (Kocaoglu et al., 2018)
+2. DCM (Diffusion based Causal Model; Chao et al. (2023))
+3. VACA (Graph Variational AE based; Sánchez-Martin et al. (2022))
 
 Axiomatic evaluation of counterfactuals can properly evaluate generated counterfactuals according to the counterfactual principles; effectiveness (whether interventions properly affect target variables), composition (identity intervention renders all variables unaffected ), reversibility (counterfactual and factual mapping is deterministic and invertible)
 
 ### References
-    [1] - 
-    [2] -
-    [3] -
-    [4] -
+- [1] - Emerging Synergies in Causality and Deep Generative Models: A Survey. Zhou and Xie, 2023
+- [2] - From Identifiable Causal Representations to Controllable Counterfactual Generation: A Survey on Causal Generative Modeling. Komanduri et al., 2024

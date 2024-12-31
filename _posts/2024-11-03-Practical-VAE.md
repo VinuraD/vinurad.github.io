@@ -27,7 +27,6 @@ A common property that can be observed in stochastic models. The weight initiali
 
 **References**
 
-[2] - VampPrior
 
 
 
