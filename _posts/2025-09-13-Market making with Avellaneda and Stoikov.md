@@ -36,7 +36,7 @@ The paper by Avellaneda and Stoikov shows a better strategy than the simple stra
 ### Inventory risk
 
 Example 1: The trader holds the assets (long) and never sell and the mid price goes down. Now the asset loses its value.  
-Example 2: The trader does not hold all the assets, but keeps a little amount (let's say they keep 50% and sell the rest). Still, if the mid price goes down, the asset loses its value and it may overpower the profits gained ($P\&L<0$).
+Example 2: The trader does not hold all the assets, but keeps a little amount (let's say they keep 50% and sell the rest). Still, if the mid price goes down, the asset loses its value and it may overpower the profits gained ($P\&L < 0$).
 
 There may be instances that holding the asset would yield better gains in the future. But that is not the focus of the trader's strategy we discussed in the preamble.
 
@@ -48,11 +48,17 @@ We can see a pitfall of the simple strategy here. As it is not sensitive to the 
 
 AS provides workarounds for this. The main derivations from the paper are;
 
-$$r = s_t - \beta q$$
-$$p_b = r + \delta^*$$
-$$p_a = r - \delta^*$$
+$$
+r = s_t - \beta q
+$$
+$$
+p_b = r + \delta^*
+$$
+$$
+p_a = r - \delta^*
+$$
 
-The amount $2\delta^*$ is called the optimal spread. Before stating how $\beta$ and $\delta^*$ are calculated, it is of our interest to know what they do. $q$ represents the current inventory (or the number of assets the trader has). The main objective is to control $q$ close to $0$ as much as possible. Hence, $r$ would be greater than $s$ (the mid price) if we have $q<0$. This means we are inclined to buy a bit higher than the mid price -> increases our buying chances. If it's $q>0$, we are trying to sell a bit lower than $s_t$.
+The amount $2\delta^*$ is called the optimal spread. Before stating how $\beta$ and $\delta^*$ are calculated, it is of our interest to know what they do. $q$ represents the current inventory (or the number of assets the trader has). The main objective is to control $q$ close to $0$ as much as possible. Hence, $r$ would be greater than $s$ (the mid price) if we have $q < 0$. This means we are inclined to buy a bit higher than the mid price → increases our buying chances. If it's $q > 0$, we are trying to sell a bit lower than $s_t$.
 
 However, this alone will not yield profits (we are buying high and selling low). Hence, we make adjustments to our $r$ by $\delta^*$ amounts, which gives us optimal ask and bid prices.
 
@@ -60,10 +66,14 @@ Another key intuition to have is that the higher the $\delta^*$ is, the higher t
 
 From the paper,
 
-$$\beta = \gamma \sigma^2 (T - t)$$
-$$\delta^* = \frac{1}{2} \gamma \sigma^2 (T - t) + \frac{1}{\gamma} \ln\left(1 + \frac{\gamma}{k}\right)$$
+$$
+\beta = \gamma \sigma^2 (T - t)
+$$
+$$
+\delta^* = \frac{1}{2} \gamma \sigma^2 (T - t) + \frac{1}{\gamma} \ln\left(1 + \frac{\gamma}{k}\right)
+$$
 
-$\gamma$ is the risk aversion degree (inventory risk) set by the trader. The higher the value, the more risk averse. $\gamma_{min}=0$ which is risk neutral. $\sigma$ denotes the volatility of the asset. $T$ and $t$ denote the end time (the trader trades) and the current time, respectively. $k$ is the liquidity parameter of the LOB. This measures the intensity of the arrival of orders that can fill the trader's bids and asks. If the $k$ value is high, then there is a higher chance that the order does not get filled if $\delta^*$ is also high.
+$\gamma$ is the risk aversion degree (inventory risk) set by the trader. The higher the value, the more risk averse. $\gamma_{min} = 0$ which is risk neutral. $\sigma$ denotes the volatility of the asset. $T$ and $t$ denote the end time (the trader trades) and the current time, respectively. $k$ is the liquidity parameter of the LOB. This measures the intensity of the arrival of orders that can fill the trader's bids and asks. If the $k$ value is high, then there is a higher chance that the order does not get filled if $\delta^*$ is also high.
 
 ### Key high level takeaways from the formulae
 
