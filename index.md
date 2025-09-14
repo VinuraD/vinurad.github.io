@@ -14,13 +14,11 @@ Welcome to My Blog. -->
     - Generative Modeling
         - Basics
             - [2024 - Expectation Maximization](./_posts/2024-12-30-Expectation Maximization.md)
-            - [pPCA](./404)
         - Causal Generative Modeling
             - [2024 - Causal Generative Modeling - a short intro](./_posts/2024-12-23-Causal Generative Modeling.md)
 
-- MLOps
-
-- Math
+- FinTech
+    - [2025 - High Frequency Trading - 1](./_posts/2025-09-13-Market%20making%20with%20Avellaneda%20and%20Stoikov.md)
 
 ### Older posts:
 
