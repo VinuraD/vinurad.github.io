@@ -26,8 +26,13 @@ Modern stock markets, crypto markets (or broadly, securities markets) are excess
 
 A trader would buy securities some amount below the mid price in the LOB (bid price), and sell at some amount above the mid price (ask price). Determining these two prices would determine the amount of profits. A naive strategy would be to set these prices by subtracting or adding a fixed amount to the mid price.
 
-$$P_a = s_t + \delta$$
-$$P_b = s_t - \delta$$
+$$
+P_a = s_t + \delta
+$$
+
+$$
+P_b = s_t - \delta
+$$
 
 ## Avellaneda and Stoikov algorithm
 
@@ -46,29 +51,34 @@ If only sell orders are filled - the trader may lose profit (do not have enough 
 
 We can see a pitfall of the simple strategy here. As it is not sensitive to the state of the inventory, it is prone to inventory risk. (i.e., we may keep filling our bids or buy orders).
 
-AS provides workarounds for this. The main derivations from the paper are;
+
+AS provides workarounds for this. The main derivations from the paper are:
 
 $$
 r = s_t - \beta q
 $$
+
 $$
 p_b = r + \delta^*
 $$
+
 $$
 p_a = r - \delta^*
 $$
 
-The amount $2\delta^*$ is called the optimal spread. Before stating how $\beta$ and $\delta^*$ are calculated, it is of our interest to know what they do. $q$ represents the current inventory (or the number of assets the trader has). The main objective is to control $q$ close to $0$ as much as possible. Hence, $r$ would be greater than $s$ (the mid price) if we have $q < 0$. This means we are inclined to buy a bit higher than the mid price → increases our buying chances. If it's $q > 0$, we are trying to sell a bit lower than $s_t$.
+The amount $2\delta^*$ is called the optimal spread. Before stating how $\beta$ and $\delta^*$ are calculated, it is of our interest to know what they do. $q$ represents the current inventory (or the number of assets the trader has). The main objective is to control $q$ close to $0$ as much as possible. Hence, $r$ would be greater than $s$ (the mid price) if we have $q < 0$. This means we are inclined to buy a bit higher than the mid price (increases our buying chances). If it's $q > 0$, we are trying to sell a bit lower than $s_t$ (increases our selling chances).
 
 However, this alone will not yield profits (we are buying high and selling low). Hence, we make adjustments to our $r$ by $\delta^*$ amounts, which gives us optimal ask and bid prices.
 
 Another key intuition to have is that the higher the $\delta^*$ is, the higher the chance that the orders do not get filled. This comes from the fact that the majority of the other orders would be closer to the mid price.
 
-From the paper,
+
+From the paper:
 
 $$
 \beta = \gamma \sigma^2 (T - t)
 $$
+
 $$
 \delta^* = \frac{1}{2} \gamma \sigma^2 (T - t) + \frac{1}{\gamma} \ln\left(1 + \frac{\gamma}{k}\right)
 $$
