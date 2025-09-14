@@ -18,7 +18,7 @@ Welcome to My Blog. -->
             - [2024 - Causal Generative Modeling - a short intro](./_posts/2024-12-23-Causal Generative Modeling.md)
 
 - FinTech
-    - [2025 - High Frequency Trading - 1](./_posts/2025-09-13-Market%20making%20with%20Avellaneda%20and%20Stoikov.md)
+    - [2025 - High Frequency Trading - 1](./_posts/2025-09-13-MM_with_AS.md)
 
 ### Older posts:
 
