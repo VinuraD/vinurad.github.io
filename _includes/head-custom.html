@@ -4,10 +4,22 @@
     tex: {
       inlineMath: [['$', '$'], ['\\(', '\\)']],
       displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true
+      processEscapes: true,
+      processEnvironments: true,
+      packages: {'[+]': ['ams']}
     },
     options: {
-      skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+      skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    },
+    startup: {
+      ready: () => {
+        MathJax.startup.defaultReady();
+        MathJax.startup.promise.then(() => {
+          console.log('MathJax initial typesetting complete');
+        });
+      }
     }
   };
 </script>

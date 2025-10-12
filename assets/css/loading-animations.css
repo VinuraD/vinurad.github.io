@@ -1,0 +1,84 @@
+/* Initial loading styles */
+body:not(.loaded) .content-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease;
+}
+
+body.loaded .content-section {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body:not(.loaded) .cloud,
+body:not(.loaded) .sun {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Override theme styles for better integration */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#container {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+
+#container .inner {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Hide default header on home page */
+.animated-body header {
+  display: none;
+}
+
+.animated-body #downloads {
+  display: none;
+}
+
+.animated-body hr {
+  display: none;
+}
+
+/* Ensure proper z-indexing */
+.animated-bg {
+  z-index: -1;
+}
+
+#container {
+  z-index: 1;
+}
+
+.content-section {
+  z-index: 2;
+}
+
+/* Smooth transitions for all animations */
+* {
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
