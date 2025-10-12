@@ -1,8 +1,12 @@
-/* Animated Background Styles */
+/* Pixel Art Animated Background Styles */
 
 .animated-body {
   position: relative;
   overflow-x: hidden;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .animated-bg {
@@ -12,225 +16,213 @@
   width: 100%;
   height: 100vh;
   z-index: -1;
-  transition: all 0.8s ease-in-out;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  image-rendering: pixelated;
 }
 
-/* Sky Theme */
+/* Pixel Sky Theme */
 .sky-theme {
-  background: linear-gradient(
-    180deg,
-    #87CEEB 0%,
-    #98D8E8 30%,
-    #B0E0E6 60%,
-    #E0F6FF 100%
-  );
+  background: 
+    linear-gradient(0deg, #87CEEB 0%, #5B9BD5 50%, #4A90E2 100%);
+  background-size: 32px 32px;
 }
 
-.sky-theme.active {
-  background: linear-gradient(
-    180deg,
-    #FF6B6B 0%,
-    #FF8E53 30%,
-    #FF6B35 60%,
-    #F7931E 100%
-  );
-}
-
-/* Underground Theme */
+/* Pixel Underground Theme */
 .underground-theme {
-  background: linear-gradient(
-    180deg,
-    #4A4A4A 0%,
-    #2C1810 30%,
-    #1A0F0A 60%,
-    #0D0504 100%
-  );
+  background: 
+    linear-gradient(0deg, #2D1B0A 0%, #1A0E06 50%, #0D0503 100%);
+  background-size: 16px 16px;
 }
 
-/* Cloud animations */
+/* Pixel Clouds */
 .cloud {
   position: absolute;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50px;
-  opacity: 0.7;
-  animation: float 20s infinite linear;
+  background: none;
+  width: 64px;
+  height: 32px;
+  opacity: 0.9;
+  animation: pixelFloat 25s infinite linear;
 }
 
-.cloud::before,
-.cloud::after {
+.cloud::before {
   content: '';
   position: absolute;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50px;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, transparent 0%, transparent 12.5%, #FFF 12.5%, #FFF 87.5%, transparent 87.5%),
+    linear-gradient(0deg, transparent 0%, transparent 25%, #FFF 25%, #FFF 75%, transparent 75%);
+  background-size: 8px 8px, 8px 8px;
+  box-shadow: 
+    0 0 0 4px #FFF,
+    8px 0 0 0 #FFF,
+    -8px 0 0 0 #FFF,
+    0 8px 0 0 #FFF,
+    0 -8px 0 0 #FFF;
 }
 
 .cloud1 {
-  width: 80px;
-  height: 40px;
   top: 20%;
   left: -80px;
-  animation-duration: 25s;
-}
-
-.cloud1::before {
-  width: 50px;
-  height: 50px;
-  top: -25px;
-  left: 10px;
-}
-
-.cloud1::after {
-  width: 60px;
-  height: 40px;
-  top: -15px;
-  right: 10px;
+  animation-duration: 30s;
 }
 
 .cloud2 {
-  width: 100px;
-  height: 50px;
   top: 35%;
-  left: -100px;
-  animation-duration: 30s;
-  animation-delay: -10s;
-}
-
-.cloud2::before {
-  width: 60px;
-  height: 60px;
-  top: -30px;
-  left: 15px;
-}
-
-.cloud2::after {
-  width: 70px;
-  height: 50px;
-  top: -20px;
-  right: 15px;
+  left: -80px;
+  animation-duration: 35s;
+  animation-delay: -12s;
+  transform: scale(1.2);
 }
 
 .cloud3 {
-  width: 120px;
-  height: 60px;
   top: 15%;
-  left: -120px;
-  animation-duration: 35s;
-  animation-delay: -20s;
+  left: -80px;
+  animation-duration: 28s;
+  animation-delay: -25s;
+  transform: scale(0.8);
 }
 
-.cloud3::before {
-  width: 70px;
-  height: 70px;
-  top: -35px;
-  left: 20px;
-}
-
-.cloud3::after {
-  width: 80px;
-  height: 60px;
-  top: -25px;
-  right: 20px;
-}
-
-/* Sun animation */
+/* Pixel Sun */
 .sun {
   position: absolute;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle, #FFD700 0%, #FFA500 100%);
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
   top: 10%;
   right: 10%;
-  animation: pulse 4s infinite ease-in-out;
-  box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+  background: 
+    radial-gradient(circle at center, #FFD700 0%, #FFD700 30%, transparent 30%),
+    linear-gradient(90deg, transparent 45%, #FFD700 45%, #FFD700 55%, transparent 55%),
+    linear-gradient(0deg, transparent 45%, #FFD700 45%, #FFD700 55%, transparent 55%),
+    linear-gradient(45deg, transparent 45%, #FFD700 45%, #FFD700 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #FFD700 45%, #FFD700 55%, transparent 55%);
+  background-size: 32px 32px, 48px 8px, 8px 48px, 48px 8px, 48px 8px;
+  background-position: center, center, center, center, center;
+  animation: pixelPulse 3s infinite ease-in-out;
+  image-rendering: pixelated;
 }
 
-/* Underground elements */
+/* Pixel Underground Elements */
 .rock {
   position: absolute;
-  background: #666;
-  border-radius: 20px;
+  background: none;
   opacity: 0;
   transition: opacity 0.8s ease;
 }
 
 .underground-theme .rock {
-  opacity: 0.6;
+  opacity: 1;
 }
 
 .rock1 {
-  width: 60px;
-  height: 40px;
+  width: 32px;
+  height: 24px;
   bottom: 20%;
   left: 15%;
-  animation: rockFloat 15s infinite ease-in-out;
+  background: 
+    linear-gradient(90deg, #666 0%, #666 75%, #999 75%),
+    linear-gradient(0deg, #444 0%, #444 50%, #666 50%);
+  background-size: 8px 8px, 8px 8px;
+  box-shadow: 
+    0 0 0 2px #666,
+    4px 0 0 0 #999,
+    0 4px 0 0 #444;
+  animation: pixelBob 12s infinite ease-in-out;
 }
 
 .rock2 {
-  width: 80px;
-  height: 50px;
+  width: 40px;
+  height: 32px;
   bottom: 30%;
   right: 20%;
-  animation: rockFloat 18s infinite ease-in-out reverse;
+  background: 
+    linear-gradient(90deg, #555 0%, #555 75%, #888 75%),
+    linear-gradient(0deg, #333 0%, #333 50%, #555 50%);
+  background-size: 8px 8px, 8px 8px;
+  box-shadow: 
+    0 0 0 2px #555,
+    4px 0 0 0 #888,
+    0 4px 0 0 #333;
+  animation: pixelBob 15s infinite ease-in-out reverse;
 }
 
+/* Pixel Crystals */
 .crystal {
   position: absolute;
-  width: 0;
-  height: 0;
+  background: none;
   opacity: 0;
   transition: opacity 0.8s ease;
 }
 
 .underground-theme .crystal {
-  opacity: 0.8;
-  animation: crystalline 3s infinite ease-in-out;
+  opacity: 1;
+  animation: pixelGlow 2s infinite ease-in-out;
 }
 
 .crystal1 {
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 40px solid #9370DB;
+  width: 16px;
+  height: 24px;
   bottom: 25%;
   left: 25%;
+  background: 
+    linear-gradient(0deg, #9370DB 0%, #9370DB 50%, #B19CD9 50%, #B19CD9 75%, #E6E6FA 75%);
+  background-size: 8px 8px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   animation-delay: 0s;
 }
 
 .crystal2 {
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-bottom: 50px solid #4169E1;
+  width: 20px;
+  height: 32px;
   bottom: 15%;
   right: 30%;
-  animation-delay: 1.5s;
+  background: 
+    linear-gradient(0deg, #4169E1 0%, #4169E1 50%, #6495ED 50%, #6495ED 75%, #E0E6FF 75%);
+  background-size: 8px 8px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation-delay: 1s;
 }
 
+/* Pixel Lava Bubbles */
 .lava-bubble {
   position: absolute;
-  background: radial-gradient(circle, #FF4500 0%, #DC143C 100%);
-  border-radius: 50%;
+  background: none;
   opacity: 0;
   transition: opacity 0.8s ease;
 }
 
 .underground-theme .lava-bubble {
-  opacity: 0.7;
-  animation: bubble 6s infinite ease-in-out;
+  opacity: 1;
+  animation: pixelBubble 4s infinite ease-in-out;
 }
 
 .bubble1 {
-  width: 30px;
-  height: 30px;
+  width: 16px;
+  height: 16px;
   bottom: 10%;
   left: 40%;
+  background: 
+    radial-gradient(circle at center, #FF4500 0%, #FF4500 50%, #DC143C 50%);
+  background-size: 8px 8px;
+  border-radius: 0;
+  box-shadow: 
+    0 0 0 2px #FF4500,
+    2px 2px 0 0 #DC143C;
 }
 
 .bubble2 {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   bottom: 35%;
   right: 45%;
-  animation-delay: 3s;
+  background: 
+    radial-gradient(circle at center, #FF6347 0%, #FF6347 50%, #CD5C5C 50%);
+  background-size: 4px 4px;
+  border-radius: 0;
+  box-shadow: 
+    0 0 0 2px #FF6347,
+    2px 2px 0 0 #CD5C5C;
+  animation-delay: 2s;
 }
 
 /* Content sections */
@@ -245,10 +237,14 @@
 }
 
 #sky-section {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
   margin: 2rem;
+  box-shadow: 
+    inset 4px 4px 0 rgba(255, 255, 255, 0.3),
+    inset -4px -4px 0 rgba(0, 0, 0, 0.3);
 }
 
 #sky-section .section-content {
@@ -259,14 +255,17 @@
 #sky-section h1 {
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-  animation: titleFloat 6s infinite ease-in-out;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  animation: pixelTitleFloat 4s infinite ease-in-out;
 }
 
 .intro-text {
   font-size: 1.3rem;
   margin-bottom: 3rem;
   opacity: 0.9;
+  font-family: 'Courier New', monospace;
 }
 
 .scroll-indicator {
@@ -274,99 +273,100 @@
 }
 
 .arrow-down {
-  width: 20px;
-  height: 20px;
-  border-right: 3px solid #2C3E50;
-  border-bottom: 3px solid #2C3E50;
-  transform: rotate(45deg);
+  width: 16px;
+  height: 16px;
+  background: #2C3E50;
   margin: 0 auto 1rem;
-  animation: bounce 2s infinite;
+  animation: pixelBounce 1.5s infinite;
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
 }
 
 #underground-section {
   background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  border: 4px solid rgba(139, 69, 19, 0.5);
+  border-radius: 0;
   margin: 2rem;
   color: #E8E8E8;
+  box-shadow: 
+    inset 4px 4px 0 rgba(139, 69, 19, 0.3),
+    inset -4px -4px 0 rgba(0, 0, 0, 0.5);
 }
 
 #underground-section .section-content {
   max-width: 800px;
+  font-family: 'Courier New', monospace;
 }
 
-/* Animations */
-@keyframes float {
+/* Pixel Art Animations */
+@keyframes pixelFloat {
   from {
-    left: -200px;
+    left: -100px;
   }
   to {
-    left: calc(100% + 200px);
+    left: calc(100% + 100px);
   }
 }
 
-@keyframes pulse {
+@keyframes pixelPulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+    filter: brightness(1);
   }
   50% {
     transform: scale(1.1);
-    box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
+    filter: brightness(1.2);
   }
 }
 
-@keyframes rockFloat {
+@keyframes pixelBob {
   0%, 100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
-@keyframes crystalline {
+@keyframes pixelGlow {
   0%, 100% {
-    filter: brightness(1) hue-rotate(0deg);
+    filter: brightness(1) saturate(1);
   }
   50% {
-    filter: brightness(1.3) hue-rotate(30deg);
+    filter: brightness(1.3) saturate(1.5);
   }
 }
 
-@keyframes bubble {
+@keyframes pixelBubble {
   0% {
     transform: translateY(0px) scale(1);
-    opacity: 0.7;
   }
   50% {
-    transform: translateY(-20px) scale(1.2);
-    opacity: 1;
+    transform: translateY(-16px) scale(1.2);
   }
   100% {
     transform: translateY(0px) scale(1);
-    opacity: 0.7;
   }
 }
 
-@keyframes titleFloat {
+@keyframes pixelTitleFloat {
   0%, 100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
-@keyframes bounce {
+@keyframes pixelBounce {
   0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0) rotate(45deg);
+    transform: translateY(0);
   }
   40% {
-    transform: translateY(-10px) rotate(45deg);
+    transform: translateY(-8px);
   }
   60% {
-    transform: translateY(-5px) rotate(45deg);
+    transform: translateY(-4px);
   }
 }
 
@@ -389,7 +389,7 @@
   }
   
   .sun {
-    width: 60px;
-    height: 60px;
+    width: 32px;
+    height: 32px;
   }
 }
