@@ -1,7 +1,7 @@
 ---
 layout: home
-title: "Vinura's Blog"
-description: "Exploring the realms of Machine Learning, Finance, and Beyond"
+title: "ThEBloG"
+description: "..."
 permalink: /blog/
 ---
 <!-- # Vinura Galwaduge
@@ -25,8 +25,6 @@ Welcome to My Blog. -->
 ### Older posts:
 
 I have some earlier posts on [Medium](https://vinurad13.medium.com/), about random topics.
-
-[About](./about).
 
 ### Random
 

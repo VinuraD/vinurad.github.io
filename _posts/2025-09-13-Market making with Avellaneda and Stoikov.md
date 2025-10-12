@@ -1,5 +1,6 @@
 ---
 layout: default
+title: "Market making with Avellaneda and Stoikov"
 permalink: /Market-making-with-Avellaneda-and-Stoikov/
 ---
 

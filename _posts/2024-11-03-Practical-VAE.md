@@ -1,5 +1,6 @@
 ---
 layout: default
+title: "Practical VAE"
 permalink: /Practical-VAE/
 ---
 # Introduction

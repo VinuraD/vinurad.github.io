@@ -1,5 +1,6 @@
 ---
 layout: default
+title: "Causal Generative Modeling"
 permalink: /Causal-Generative-Modeling/
 ---
 ## Background and Motivation
