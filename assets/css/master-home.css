@@ -248,6 +248,10 @@
   background-color: rgba(102, 126, 234, 0.1);
 }
 
+.projects-tab:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
 .about-tab:hover {
   background-color: rgba(74, 144, 226, 0.1);
 }

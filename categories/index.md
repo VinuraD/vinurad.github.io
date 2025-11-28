@@ -1,17 +1,14 @@
 ---
-layout: home
-title: "ThEBloG"
-description: "..."
-permalink: /blog/
+layout: default
+title: "All Categories"
+description: "Browse all blog post categories"
+permalink: /categories/
 ---
 
 <link rel="stylesheet" href="{{ '/assets/css/categories.css' | relative_url }}" type="text/css">
 
-<!-- # Vinura Galwaduge
+# All Categories
 
-Welcome to My Blog. -->
-
-## Categories {#categories}
 
 <div class="categories-grid">
   <a href="/categories/generative-modeling/" class="category-card category-generative">
@@ -45,34 +42,6 @@ Welcome to My Blog. -->
   </a>
 </div>
 
-<div class="recent-posts">
-  <h3>📝 Recent Posts</h3>
-  
-  <div class="recent-post">
-    <h4><a href="/Market-making-with-Avellaneda-and-Stoikov/">Market making with Avellaneda and Stoikov</a></h4>
-    <p>High-level intuition of market making and the Avellaneda-Stoikov algorithm • <strong>FinTech</strong> • 2025</p>
-  </div>
-  
-  <div class="recent-post">
-    <h4><a href="/Practical-VAE/">Practical VAE</a></h4>
-    <p>Practical considerations when working with Variational Auto-Encoders • <strong>Generative Modeling</strong> • 2024</p>
-  </div>
-  
-  <div class="recent-post">
-    <h4><a href="/training-CVAE/">Training CVAE</a></h4>
-    <p>Techniques for training CVAEs with tabular data • <strong>Generative Modeling</strong> • 2024</p>
-  </div>
-  
-  <div class="recent-post">
-    <h4><a href="/Causal-Generative-Modeling/">Causal Generative Modeling</a></h4>
-    <p>A short introduction to causality in generative modeling • <strong>Generative Modeling</strong> • 2024</p>
-  </div>
-</div>
+---
 
-### Older posts:
-
-I have some earlier posts on [Medium](https://vinurad13.medium.com/), about random topics.
-
-<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=IS68amXisjjj1NtFb9AlJdM9_8-mOlbdvYSWGaYr204&cl=ffffff&w=a"></script>
-
-<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=IS68amXisjjj1NtFb9AlJdM9_8-mOlbdvYSWGaYr204&cl=ffffff&w=a"></script>
+[← Back to Blog](/blog)
