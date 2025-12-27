@@ -13,11 +13,6 @@ permalink: /categories/fintech/
 - **[Market making with Avellaneda and Stoikov](/Market-making-with-Avellaneda-and-Stoikov/)** (2025)
   - *High-level intuition of market making, its goals, and the Avellaneda-Stoikov algorithm for market making*
 
-### Coming Soon
-- Algorithmic Trading Strategies
-- Risk Management in HFT
-- Market Microstructure Analysis
-
 ---
 
 **Total posts:** 1

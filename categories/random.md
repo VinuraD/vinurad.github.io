@@ -15,12 +15,6 @@ A collection of miscellaneous posts, creative works, and random musings that don
 - **[(Im)perfect Symmetry](/random/2024-11-03-Pinery.md)** (2024)
   - *Captured at the Pinery Provincial Park, ON, Canada*
 
-### Coming Soon
-- Travel Photography
-- Technical Musings
-- Book Reviews
-- Life Reflections
-
 ---
 
 **Total posts:** 1
