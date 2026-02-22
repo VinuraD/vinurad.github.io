@@ -35,6 +35,12 @@ permalink: /categories/
     <div class="category-count">Coming soon</div>
   </a>
 
+  <a href="/categories/netsec/" class="category-card category-netsec">
+    <div class="category-title">NetSec</div>
+    <div class="category-description">Network security, detection, and defensive tooling</div>
+    <div class="category-count">3 posts</div>
+  </a>
+
   <a href="/categories/random/" class="category-card category-random">
     <div class="category-title">🎨 Random</div>
     <div class="category-description">Photography, musings, and everything else that sparks curiosity</div>

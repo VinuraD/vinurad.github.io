@@ -107,6 +107,10 @@
   background-color: rgba(255, 152, 0, 0.1);
 }
 
+.category-netsec:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
 /* Recent posts section */
 .recent-posts {
   margin-top: 3rem;

@@ -38,6 +38,12 @@ Welcome to My Blog. -->
     <div class="category-count">Coming soon</div>
   </a>
 
+  <a href="/categories/netsec/" class="category-card category-netsec">
+    <div class="category-title">NetSec</div>
+    <div class="category-description">Network security, detection, and defensive tooling</div>
+    <div class="category-count">3 posts</div>
+  </a>
+
   <a href="/categories/random/" class="category-card category-random">
     <div class="category-title">🎨 Random</div>
     <div class="category-description">Photography, musings, and everything else that sparks curiosity</div>
@@ -47,6 +53,11 @@ Welcome to My Blog. -->
 
 <div class="recent-posts">
   <h3>📝 Recent Posts</h3>
+  
+  <div class="recent-post">
+    <h4><a href="/pwnable-random/">pwnable.kr - random</a></h4>
+    <p>Solving the random challenge from Toddler's Bottle - <strong>NetSec</strong> - 2026</p>
+  </div>
   
   <div class="recent-post">
     <h4><a href="/Market-making-with-Avellaneda-and-Stoikov/">Market making with Avellaneda and Stoikov</a></h4>
