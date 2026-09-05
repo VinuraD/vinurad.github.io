@@ -67,10 +67,15 @@ jobs:
           [ "$c_other" = "1" ]      || fail "misc-other should be 1, got $c_other"
 
           echo "--- empty LLMs category is hidden ---"
-          if grep -q 'LLMs' _site/index.html; then
-            fail "empty LLMs category is showing on the home page"
+          # Must test for a link to the category, not the bare word — the rail
+          # tagline legitimately contains "LLMs".
+          if grep -q 'href="/blog/llms/"' _site/index.html; then
+            fail "empty LLMs category is linked from the home page"
           fi
-          ok "LLMs absent from home page"
+          if grep -q 'href="/blog/llms/"' _site/blog/index.html; then
+            fail "empty LLMs category is linked from the writing index"
+          fi
+          ok "LLMs category not linked anywhere while empty"
 
           echo "--- 5-post cap with expandable remainder ---"
           grep -q '<details class="more"' _site/index.html || fail "no <details> disclosure on home"
