@@ -27,8 +27,11 @@ jobs:
       - name: Verify structure
         run: |
           set -e
-          fail() { echo "FAIL: $1"; exit 1; }
+          # ::error:: / ::notice:: become check-run annotations, which are
+          # readable from the public API without a token.
+          fail() { echo "::error::$1"; exit 1; }
           ok()   { echo "  ok  $1"; }
+          note() { echo "::notice::$1"; }
 
           echo "--- pages exist ---"
           for f in index.html blog/index.html projects/index.html about/index.html 404.html; do
@@ -64,7 +67,9 @@ jobs:
           [ "$c_other" = "1" ]      || fail "misc-other should be 1, got $c_other"
 
           echo "--- empty LLMs category is hidden ---"
-          grep -q 'LLMs' _site/index.html && fail "empty LLMs category is showing on the home page"
+          if grep -q 'LLMs' _site/index.html; then
+            fail "empty LLMs category is showing on the home page"
+          fi
           ok "LLMs absent from home page"
 
           echo "--- 5-post cap with expandable remainder ---"
@@ -78,12 +83,14 @@ jobs:
 
           echo "--- no trace of the old theme ---"
           for s in master-home animated-background tactile categories.css; do
-            grep -rq "$s" _site --include=*.html && fail "_site still references $s"
+            if grep -rq "$s" _site --include=*.html; then
+              fail "_site still references $s"
+            fi
           done
           ok "old theme fully gone"
 
-          echo ""
-          echo "All structural checks passed."
+          note "counts: causality=$c_causality misc-tech=$c_tech misc-other=$c_other"
+          note "All structural checks passed."
 
       - uses: actions/upload-artifact@v4
         with:
