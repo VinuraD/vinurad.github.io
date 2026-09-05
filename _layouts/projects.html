@@ -1,0 +1,82 @@
+---
+layout: base
+---
+{%- assign pubs = site.data.projects.publications -%}
+{%- assign repos = site.data.projects.code -%}
+<div class="col">
+  <p class="eyebrow">Index</p>
+  <h1 class="h1">{{ page.title }}</h1>
+  {%- if page.lede %}<p class="lede">{{ page.lede }}</p>{% endif %}
+
+  {{ content }}
+
+  {%- if pubs and pubs.size > 0 %}
+  <section class="group">
+    <h2 class="group-head">Publications</h2>
+    <div class="bib">
+      {%- for p in pubs %}
+      <div class="bib-item">
+        <span class="bib-no">P{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+        <div>
+          <span class="bib-title">{{ p.title }}</span>
+          {%- if p.authors %}<span class="bib-meta">{{ p.authors }}</span>{% endif %}
+          {%- if p.venue or p.year %}
+          <span class="bib-meta"><em>{{ p.venue }}</em>{% if p.venue and p.year %}, {% endif %}{{ p.year }}</span>
+          {%- endif %}
+          {%- if p.description %}<p class="bib-desc">{{ p.description }}</p>{% endif %}
+          {%- if p.links %}
+          <span class="bib-links">
+            {%- for l in p.links %}{% unless forloop.first %}<i>·</i>{% endunless %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor -%}
+          </span>
+          {%- endif %}
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- if repos and repos.size > 0 %}
+  <section class="group">
+    <h2 class="group-head">Code</h2>
+    <div class="bib">
+      {%- for r in repos %}
+      <div class="bib-item">
+        <span class="bib-no">R{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+        <div>
+          <span class="bib-title">{{ r.title }}</span>
+          {%- if r.year %}<span class="bib-meta">{{ r.year }}</span>{% endif %}
+          {%- if r.description %}<p class="bib-desc">{{ r.description }}</p>{% endif %}
+          {%- if r.links %}
+          <span class="bib-links">
+            {%- for l in r.links %}{% unless forloop.first %}<i>·</i>{% endunless %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor -%}
+          </span>
+          {%- endif %}
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- assign npubs = pubs | size %}
+  {%- assign nrepos = repos | size %}
+  {%- if npubs == 0 and nrepos == 0 %}
+  <p class="empty-note">
+    Nothing listed yet. Entries are added in <code>_data/projects.yml</code>.
+  </p>
+  {%- endif %}
+</div>
+
+<aside class="marg">
+  {%- assign npubs = pubs | size %}
+  {%- assign nrepos = repos | size %}
+  {%- if npubs > 0 %}<div class="marg-blk"><span class="marg-lbl">Publications</span>{{ npubs }}</div>{% endif %}
+  {%- if nrepos > 0 %}<div class="marg-blk"><span class="marg-lbl">Repositories</span>{{ nrepos }}</div>{% endif %}
+  <div class="marg-blk">
+    <span class="marg-lbl">Elsewhere</span>
+    {%- for l in site.social_links %}
+    <p class="marg-note"><a href="{{ l.url }}">{{ l.name }} ↗</a></p>
+    {%- endfor %}
+  </div>
+</aside>

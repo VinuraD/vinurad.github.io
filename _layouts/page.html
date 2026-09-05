@@ -1,0 +1,23 @@
+---
+layout: base
+---
+<div class="col">
+  {%- if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
+  <h1 class="h1">{{ page.title }}</h1>
+  {%- if page.lede %}<p class="lede">{{ page.lede }}</p>{% endif %}
+  <div class="body">
+    {{ content }}
+  </div>
+</div>
+
+<aside class="marg">
+  {{ page.margin }}
+  {%- if page.show_contact %}
+  <div class="marg-blk">
+    <span class="marg-lbl">Elsewhere</span>
+    {%- for l in site.social_links %}
+    <p class="marg-note"><a href="{{ l.url }}">{{ l.name }} ↗</a></p>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+</aside>

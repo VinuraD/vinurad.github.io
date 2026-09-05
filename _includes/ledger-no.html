@@ -1,0 +1,16 @@
+{%- comment -%}
+  Ledger number for a post. Derived from date order across the whole site so the
+  oldest post is 001. A post may pin its number with `ref:` in front matter,
+  which wins — use that if you ever backdate a post.
+{%- endcomment -%}
+{%- if include.post.ref -%}
+{{ include.post.ref }}
+{%- else -%}
+{%- assign _ordered = site.posts | sort: 'date' -%}
+{%- assign _n = 0 -%}
+{%- for _p in _ordered -%}
+{%- assign _n = _n | plus: 1 -%}
+{%- if _p.url == include.post.url -%}{%- break -%}{%- endif -%}
+{%- endfor -%}
+{{ _n | prepend: '00' | slice: -3, 3 }}
+{%- endif -%}

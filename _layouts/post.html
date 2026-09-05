@@ -1,0 +1,76 @@
+---
+layout: base
+---
+{%- assign key = page.categories | first -%}
+{%- assign cat = site.data.categories | where: 'key', key | first -%}
+<div class="col">
+  {%- if cat %}
+  <p class="eyebrow"><a href="{{ '/blog/' | append: key | append: '/' | relative_url }}">{{ cat.number }} — {{ cat.title }}</a></p>
+  {%- endif %}
+  <h1 class="ptitle">{{ page.title }}</h1>
+
+  <article class="body">
+    {{ content }}
+  </article>
+</div>
+
+<aside class="marg">
+  <div class="marg-blk">
+    <span class="marg-lbl">No.</span>{% include ledger-no.html post=page %}
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Published</span>
+    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %b %Y" }}</time>
+  </div>
+  {%- assign words = content | number_of_words %}
+  {%- if words > 60 %}
+  <div class="marg-blk">
+    <span class="marg-lbl">Reading</span>{{ words | divided_by: 200 | plus: 1 }} min
+  </div>
+  {%- endif %}
+  {%- if page.topic %}
+  <div class="marg-blk"><span class="marg-lbl">Topic</span>{{ page.topic }}</div>
+  {%- endif %}
+
+  {%- comment -%} Series navigation, when a post declares `series`. {%- endcomment -%}
+  {%- if page.series %}
+  {%- assign sibs = site.posts | where: 'series', page.series | sort: 'date' %}
+  <div class="marg-blk">
+    <span class="marg-lbl">Series</span>
+    {{ page.series }}
+    <ol class="marg-series">
+      {%- for s in sibs %}
+      <li>{% if s.url == page.url %}<span class="here">{{ s.title }}</span>{% else %}<a href="{{ s.url | relative_url }}">{{ s.title }}</a>{% endif %}</li>
+      {%- endfor %}
+    </ol>
+  </div>
+  {%- endif %}
+
+  {%- if page.notes %}
+  <div class="marg-blk">
+    <span class="marg-lbl">Notes</span>
+    {%- for n in page.notes %}
+    <p class="marg-note"><sup>{{ forloop.index }}</sup>{{ n }}</p>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+
+  {%- if page.references %}
+  <div class="marg-blk">
+    <span class="marg-lbl">References</span>
+    {%- for r in page.references %}
+    <p class="marg-note">[{{ forloop.index }}] {{ r }}</p>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+
+  {%- assign prev = page.previous %}
+  {%- assign next = page.next %}
+  {%- if prev or next %}
+  <div class="marg-blk marg-nav">
+    <span class="marg-lbl">Nearby</span>
+    {%- if next %}<a href="{{ next.url | relative_url }}">↑ {{ next.title }}</a>{% endif %}
+    {%- if prev %}<a href="{{ prev.url | relative_url }}">↓ {{ prev.title }}</a>{% endif %}
+  </div>
+  {%- endif %}
+</aside>

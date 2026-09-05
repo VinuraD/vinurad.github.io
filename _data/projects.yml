@@ -1,0 +1,24 @@
+# Drives /projects/. Add entries here — no HTML to touch.
+#
+# publications: numbered P01, P02, … in the order listed.
+# code:         numbered R01, R02, … in the order listed.
+#
+# Every field except `title` is optional; omitted links simply don't render.
+
+publications:
+  # - title: "Full paper title as it appears in the proceedings"
+  #   authors: "Galwaduge, V. D., Co-author, A."
+  #   venue: "Conference or Journal Name"
+  #   year: 2026
+  #   description: "One or two lines on what the paper does."
+  #   links:
+  #     pdf: "https://…"
+  #     arxiv: "https://arxiv.org/abs/…"
+  #     code: "https://github.com/…"
+
+code:
+  # - title: "repository-name"
+  #   year: 2025
+  #   description: "One or two lines on what the repo does."
+  #   links:
+  #     github: "https://github.com/VinuraD/repository-name"

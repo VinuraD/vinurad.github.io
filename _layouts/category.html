@@ -1,0 +1,60 @@
+---
+layout: base
+---
+{%- assign cat = site.data.categories | where: 'key', page.cat | first -%}
+{%- assign posts = site.categories[page.cat] -%}
+<div class="col">
+  <p class="eyebrow"><a href="{{ '/' | relative_url }}">Index</a></p>
+  <h1 class="h1">{{ cat.number }} — {{ cat.title }}</h1>
+  {%- if cat.blurb %}<p class="lede">{{ cat.blurb }}</p>{% endif %}
+
+  {{ content }}
+
+  {%- comment -%}
+    Group by `topic` when any post in this category declares one — that's what
+    gives Misc-Tech its sub-structure. Otherwise render one flat list.
+  {%- endcomment -%}
+  {%- assign topical = posts | where_exp: 'p', 'p.topic' -%}
+  {%- if topical.size > 0 -%}
+    {%- assign topics = topical | map: 'topic' | uniq | sort -%}
+    {%- for t in topics %}
+    {%- assign inTopic = posts | where: 'topic', t %}
+    <section class="group">
+      <h2 class="group-head">{{ t }}</h2>
+      {% include post-list.html posts=inTopic cap=0 %}
+    </section>
+    {%- endfor %}
+    {%- assign untopical = posts | where_exp: 'p', 'p.topic == nil' %}
+    {%- if untopical.size > 0 %}
+    <section class="group">
+      <h2 class="group-head">Other</h2>
+      {% include post-list.html posts=untopical cap=0 %}
+    </section>
+    {%- endif %}
+  {%- elsif posts.size > 0 -%}
+    <section class="group">
+      {% include post-list.html posts=posts cap=0 %}
+    </section>
+  {%- else -%}
+    <p class="empty-note">Nothing here yet.</p>
+  {%- endif -%}
+</div>
+
+<aside class="marg">
+  <div class="marg-blk"><span class="marg-lbl">Pieces</span>{{ posts | size }}</div>
+  {%- assign topics = posts | map: 'topic' | compact | uniq | sort %}
+  {%- if topics.size > 0 %}
+  <div class="marg-blk">
+    <span class="marg-lbl">Topics</span>
+    {%- for t in topics %}
+    <p class="marg-note">{{ t }} ({{ posts | where: 'topic', t | size }})</p>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+  {%- if posts.size > 0 %}
+  {%- assign ordered = posts | sort: 'date' %}
+  <div class="marg-blk">
+    <span class="marg-lbl">Span</span>{{ ordered.first.date | date: "%Y" }}–{{ ordered.last.date | date: "%Y" }}
+  </div>
+  {%- endif %}
+</aside>

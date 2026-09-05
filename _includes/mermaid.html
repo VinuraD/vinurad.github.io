@@ -1,0 +1,56 @@
+<script type="module">
+  // kramdown renders ```mermaid as <pre><code class="language-mermaid">, which
+  // Mermaid's own startOnLoad does not recognise. Convert those blocks first,
+  // then render — and re-render when the colour theme changes.
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+
+  const blocks = [];
+  document.querySelectorAll("pre > code.language-mermaid").forEach((code) => {
+    const pre = code.parentElement;
+    const host = document.createElement("div");
+    host.className = "mermaid-figure";
+    host.dataset.src = code.textContent;
+    pre.replaceWith(host);
+    blocks.push(host);
+  });
+
+  function resolvedTheme() {
+    const set = document.documentElement.getAttribute("data-theme");
+    if (set) return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  let n = 0;
+  async function render() {
+    const dark = resolvedTheme() === "dark";
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: "base",
+      themeVariables: {
+        background:        dark ? "#141519" : "#FBFAF7",
+        primaryColor:      dark ? "#1B1D22" : "#F3F1EB",
+        primaryTextColor:  dark ? "#E6E4DF" : "#16181D",
+        primaryBorderColor:dark ? "#4A4D55" : "#B9B4A9",
+        lineColor:         dark ? "#8B9098" : "#5F636A",
+        fontFamily: "ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace",
+        fontSize: "13px"
+      }
+    });
+    for (const host of blocks) {
+      try {
+        const { svg } = await mermaid.render("m" + (n++), host.dataset.src);
+        host.innerHTML = svg;
+      } catch (e) {
+        // Leave the source visible rather than showing an empty gap.
+        host.innerHTML = "<pre><code>" + host.dataset.src.replace(/[<&]/g, c => c === "<" ? "&lt;" : "&amp;") + "</code></pre>";
+      }
+    }
+  }
+
+  if (blocks.length) {
+    render();
+    const toggle = document.getElementById("theme-toggle");
+    if (toggle) toggle.addEventListener("click", () => setTimeout(render, 0));
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+  }
+</script>

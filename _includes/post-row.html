@@ -1,0 +1,13 @@
+<a class="item" href="{{ include.post.url | relative_url }}">
+  <span class="item-no">{% include ledger-no.html post=include.post %}</span>
+  <span class="item-body">
+    <span class="item-title">{{ include.post.title }}</span>
+    {%- if include.post.description %}
+    <span class="item-desc">
+      {%- if include.showtopic and include.post.topic %}<em>{{ include.post.topic }}</em> · {% endif -%}
+      {{ include.post.description }}
+    </span>
+    {%- endif %}
+  </span>
+  <span class="item-date"><time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: "%Y.%m.%d" }}</time></span>
+</a>

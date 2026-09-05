@@ -1,0 +1,22 @@
+# Top-level categories. Order here is the order shown in the rail and on the
+# home page. A category with zero posts is skipped everywhere automatically,
+# so `llms` stays invisible until its first post is published.
+- key: causality
+  number: "01"
+  title: Causality
+  blurb: Causal inference and its intersection with machine learning.
+
+- key: llms
+  number: "02"
+  title: LLMs
+  blurb: Large language models.
+
+- key: misc-tech
+  number: "03"
+  title: Misc-Tech
+  blurb: Assorted technical notes.
+
+- key: misc-other
+  number: "04"
+  title: Misc-Other
+  blurb: Everything else.

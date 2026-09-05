@@ -1,0 +1,68 @@
+---
+layout: base
+---
+<div class="col">
+  <p class="eyebrow">Index</p>
+  <h1 class="h1">{{ page.heading | default: 'Writing &amp; Projects' }}</h1>
+
+  {{ content }}
+
+  {%- for c in site.data.categories %}
+  {%- assign posts = site.categories[c.key] %}
+  {%- if posts and posts.size > 0 %}
+  {%- assign curl = '/blog/' | append: c.key | append: '/' %}
+  <section class="group">
+    <h2 class="group-head">
+      <a href="{{ curl | relative_url }}">{{ c.number }} — {{ c.title }}</a>
+    </h2>
+    {% include post-list.html posts=posts cap=site.list_cap showtopic=true %}
+  </section>
+  {%- endif %}
+  {%- endfor %}
+
+  {%- assign pubs = site.data.projects.publications | default: empty %}
+  {%- assign repos = site.data.projects.code | default: empty %}
+  {%- if pubs.size > 0 or repos.size > 0 %}
+  <section class="group">
+    <h2 class="group-head"><a href="{{ '/projects/' | relative_url }}">Projects</a></h2>
+    {%- for p in pubs limit: 3 %}
+    <a class="item" href="{{ '/projects/' | relative_url }}">
+      <span class="item-no">P{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+      <span class="item-body">
+        <span class="item-title">{{ p.title }}</span>
+        {%- if p.venue %}<span class="item-desc">{{ p.venue }}{% if p.year %}, {{ p.year }}{% endif %}</span>{% endif %}
+      </span>
+      <span class="item-date">{{ p.year }}</span>
+    </a>
+    {%- endfor %}
+    {%- for r in repos limit: 3 %}
+    <a class="item" href="{{ r.links.github | default: '/projects/' | relative_url }}">
+      <span class="item-no">R{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+      <span class="item-body">
+        <span class="item-title">{{ r.title }}</span>
+        {%- if r.description %}<span class="item-desc">{{ r.description }}</span>{% endif %}
+      </span>
+      <span class="item-date">{{ r.year }}</span>
+    </a>
+    {%- endfor %}
+  </section>
+  {%- endif %}
+</div>
+
+<aside class="marg">
+  {%- assign total = site.posts | size %}
+  <div class="marg-blk"><span class="marg-lbl">Pieces</span>{{ total }}</div>
+  {%- for c in site.data.categories %}
+  {%- assign n = site.categories[c.key] | size %}
+  {%- if n > 0 %}
+  <div class="marg-blk"><span class="marg-lbl">{{ c.title }}</span>{{ n }}</div>
+  {%- endif %}
+  {%- endfor %}
+  {%- if total > 0 %}
+  {%- assign ordered = site.posts | sort: 'date' %}
+  <div class="marg-blk">
+    <span class="marg-lbl">Span</span>
+    {{ ordered.first.date | date: "%Y" }}–{{ ordered.last.date | date: "%Y" }}
+  </div>
+  {%- endif %}
+</aside>

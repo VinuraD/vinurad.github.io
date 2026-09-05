@@ -1,0 +1,32 @@
+---
+layout: base
+---
+<div class="col">
+  <p class="eyebrow"><a href="{{ '/' | relative_url }}">Index</a></p>
+  <h1 class="h1">{{ page.title }}</h1>
+  {%- if page.lede %}<p class="lede">{{ page.lede }}</p>{% endif %}
+
+  {{ content }}
+
+  {%- for c in site.data.categories %}
+  {%- assign posts = site.categories[c.key] %}
+  {%- if posts and posts.size > 0 %}
+  <section class="group">
+    <h2 class="group-head">
+      <a href="{{ '/blog/' | append: c.key | append: '/' | relative_url }}">{{ c.number }} — {{ c.title }}</a>
+    </h2>
+    {% include post-list.html posts=posts cap=0 showtopic=true %}
+  </section>
+  {%- endif %}
+  {%- endfor %}
+</div>
+
+<aside class="marg">
+  <div class="marg-blk"><span class="marg-lbl">Pieces</span>{{ site.posts | size }}</div>
+  {%- for c in site.data.categories %}
+  {%- assign n = site.categories[c.key] | size %}
+  {%- if n > 0 %}
+  <div class="marg-blk"><span class="marg-lbl">{{ c.title }}</span>{{ n }}</div>
+  {%- endif %}
+  {%- endfor %}
+</aside>

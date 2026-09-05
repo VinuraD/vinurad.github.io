@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>{% include head.html %}</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    {% include rail.html %}
+    <main class="main" id="main">
+      {{ content }}
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var b = document.getElementById('theme-toggle');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var root = document.documentElement;
+        var now = root.getAttribute('data-theme');
+        if (!now) {
+          now = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var next = now === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

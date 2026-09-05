@@ -1,30 +1,32 @@
 ---
-layout: default
+layout: page
 title: "About"
-description: "Learn more about my background and journey"
 permalink: /about/
+eyebrow: "Index"
+show_contact: true
+redirect_from:
+  - /connect/
+  - /contact/
+  - /contact/contact.html
 ---
 
-# About
+<!-- TODO — replace this paragraph with a short bio: who you are, where you
+     are, and what you work on. Two or three sentences is enough. -->
 
-Welcome to my corner of the digital world! I'm passionate about exploring the intersections of technology, mathematics, and real-world applications.
+*Bio to be written.*
 
-## Background
+## Research
 
-*Content coming soon...*
+<!-- TODO — what you work on and what you're currently interested in. -->
 
-## Interests
+*To be written.*
 
-- Machine Learning & Deep Learning
-- Financial Technology & Quantitative Finance
-- Generative Modeling
-- High-Frequency Trading
-- Mathematical Modeling
+## Education
 
-## Journey
+<!-- TODO — degrees, institutions, years. -->
 
-*More details about my academic and professional journey will be added here...*
+*To be written.*
 
----
+## Contact
 
-[← Back to Home](/) | [Visit Blog](/blog) | [Connect with Me](/connect)
+The quickest way to reach me is by [email](mailto:vgalwadu@uwo.ca).

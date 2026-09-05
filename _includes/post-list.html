@@ -1,0 +1,30 @@
+{%- comment -%}
+  Renders a list of posts, capped at `cap`. The remainder sits inside a native
+  <details> so "See all" works with JavaScript disabled.
+  Params: posts, cap (0 = no cap), showtopic
+{%- endcomment -%}
+{%- assign cap = include.cap | default: 0 | plus: 0 -%}
+{%- assign total = include.posts | size -%}
+{%- if cap > 0 and total > cap -%}
+  {%- assign head = include.posts | slice: 0, cap -%}
+  {%- assign tail = include.posts | slice: cap, total -%}
+{%- else -%}
+  {%- assign head = include.posts -%}
+  {%- assign tail = empty -%}
+{%- endif -%}
+
+<div class="list">
+  {%- for post in head %}{% include post-row.html post=post showtopic=include.showtopic %}{% endfor -%}
+</div>
+
+{%- if tail != empty and tail.size > 0 %}
+<details class="more">
+  <summary>
+    <span class="more-open">See all {{ total }} →</span>
+    <span class="more-shut">Show fewer ↑</span>
+  </summary>
+  <div class="list">
+    {%- for post in tail %}{% include post-row.html post=post showtopic=include.showtopic %}{% endfor -%}
+  </div>
+</details>
+{%- endif -%}

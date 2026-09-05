@@ -1,0 +1,92 @@
+name: Build
+
+# Build-only verification. This does NOT deploy — GitHub Pages publishes this
+# user site from its own configured branch. Running here just proves the site
+# compiles and that the taxonomy, redirects and caps came out right.
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build
+        run: bundle exec jekyll build --trace
+
+      - name: Verify structure
+        run: |
+          set -e
+          fail() { echo "FAIL: $1"; exit 1; }
+          ok()   { echo "  ok  $1"; }
+
+          echo "--- pages exist ---"
+          for f in index.html blog/index.html projects/index.html about/index.html 404.html; do
+            test -f "_site/$f" || fail "missing _site/$f"; ok "$f"
+          done
+
+          echo "--- posts land under /blog/<category>/<slug>/ ---"
+          for f in blog/causality/causality-3 blog/causality/causal-generative-modeling \
+                   blog/misc-tech/fail2ban blog/misc-tech/pwnable-random \
+                   blog/misc-tech/practical-vae blog/misc-other/imperfect-symmetry; do
+            test -f "_site/$f/index.html" || fail "missing _site/$f/index.html"; ok "$f"
+          done
+
+          echo "--- old permalinks redirect ---"
+          for f in Causality-1 Causality-2 Causality-3 Practical-VAE training-CVAE \
+                   Diffusion-Primer Causal-Generative-Modeling Expectation-Maximization \
+                   Market-making-with-Avellaneda-and-Stoikov Graph-Isomorphism \
+                   Hodge-Laplacian-Operator GCP-Backups Fail2Ban pwnable-random; do
+            test -f "_site/$f/index.html" || fail "no redirect stub for /$f/"
+            grep -qi 'refresh\|canonical' "_site/$f/index.html" || fail "/$f/ is not a redirect"
+            ok "/$f/"
+          done
+          test -f "_site/(im)perfect-symmetry/index.html" || fail "no redirect for /(im)perfect-symmetry/"
+          ok "/(im)perfect-symmetry/"
+
+          echo "--- post counts per category ---"
+          c_causality=$(ls -d _site/blog/causality/*/ | wc -l)
+          c_tech=$(ls -d _site/blog/misc-tech/*/ | wc -l)
+          c_other=$(ls -d _site/blog/misc-other/*/ | wc -l)
+          echo "  causality=$c_causality misc-tech=$c_tech misc-other=$c_other"
+          [ "$c_causality" = "4" ]  || fail "causality should be 4, got $c_causality"
+          [ "$c_tech" = "10" ]      || fail "misc-tech should be 10, got $c_tech"
+          [ "$c_other" = "1" ]      || fail "misc-other should be 1, got $c_other"
+
+          echo "--- empty LLMs category is hidden ---"
+          grep -q 'LLMs' _site/index.html && fail "empty LLMs category is showing on the home page"
+          ok "LLMs absent from home page"
+
+          echo "--- 5-post cap with expandable remainder ---"
+          grep -q '<details class="more"' _site/index.html || fail "no <details> disclosure on home"
+          grep -q 'See all 10' _site/index.html || fail "misc-tech should offer 'See all 10'"
+          ok "cap + details present"
+
+          echo "--- ledger numbering ---"
+          grep -q 'item-no">001' _site/index.html || fail "ledger number 001 not rendered"
+          ok "ledger numbers rendered"
+
+          echo "--- no trace of the old theme ---"
+          for s in master-home animated-background tactile categories.css; do
+            grep -rq "$s" _site --include=*.html && fail "_site still references $s"
+          done
+          ok "old theme fully gone"
+
+          echo ""
+          echo "All structural checks passed."
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: _site
+          retention-days: 7

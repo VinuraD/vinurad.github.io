@@ -1,26 +1,55 @@
-title: Vinura's Blog
-description: ~~~~~~~~~~~~~~~~~~~
-# author:
-#   name: Vinura (Dhananjaya) Galwaduge
-#   email: vgalwadu@uwo.ca
+title: Vinura Dhananjaya Galwaduge
+description: >-
+  Notes and writeups on causal machine learning, large language models,
+  and assorted technical work.
+url: "https://vinurad.github.io"
 
-remote_theme: pages-themes/tactile@v0.2.0
+author:
+  name: Vinura Dhananjaya Galwaduge
+  email: vgalwadu@uwo.ca
+
+# Shown in the left rail. Edit freely.
+tagline: Causal machine learning, LLMs.
+affiliation: Western University
+
+social_links:
+  - { name: scholar,  url: "https://scholar.google.com/citations?user=qc6CJjYAAAAJ" }
+  - { name: github,   url: "https://github.com/VinuraD" }
+  - { name: medium,   url: "https://vinurad13.medium.com/" }
+  - { name: email,    url: "mailto:vgalwadu@uwo.ca" }
+
+# How many posts each category shows before the "See all" disclosure opens.
+list_cap: 5
+
 plugins:
-- jekyll-remote-theme
-- jekyll-include-cache
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-redirect-from
+  - jekyll-sitemap
+
+permalink: /blog/:categories/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
 
 markdown: kramdown
 kramdown:
   input: GFM
   math_engine: mathjax
-  math_engine_opts:
-    preview: true
-    preview_as_code: false
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
 
+sass:
+  style: compressed
 
- #social_links:
-  
-  #  - { platform: google_scholar, user_url: "https://scholar.google.com/citations?user=qc6CJjYAAAAJ" }
-  #  - { platform: linkedin,       user_url: "https://www.linkedin.com/in/jekyll" }
-  #  - { platform: x,              user_url: "https://x.com/jekyllrb" }
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

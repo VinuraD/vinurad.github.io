@@ -1,0 +1,34 @@
+<aside class="rail">
+  <a class="rail-id" href="{{ '/' | relative_url }}">
+    <span class="rail-name">{{ site.title }}</span>
+    {%- if site.tagline or site.affiliation %}
+    <span class="rail-role">
+      {{- site.tagline }}{% if site.affiliation %}<br>{{ site.affiliation }}{% endif -%}
+    </span>
+    {%- endif %}
+  </a>
+
+  <nav class="rail-nav" aria-label="Primary">
+    <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="on" aria-current="page"{% endif %}><span class="num">—</span>Index</a>
+    <a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' %} class="on" aria-current="page"{% endif %}><span class="num">—</span>Projects</a>
+    <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} class="on" aria-current="page"{% endif %}><span class="num">—</span>About</a>
+  </nav>
+
+  <p class="rail-group">Writing</p>
+  <nav class="rail-nav" aria-label="Categories">
+    {%- for c in site.data.categories %}
+    {%- assign n = site.categories[c.key] | size %}
+    {%- if n > 0 %}
+    {%- assign curl = '/blog/' | append: c.key | append: '/' %}
+    <a href="{{ curl | relative_url }}"{% if page.url == curl or page.categories contains c.key %} class="on"{% endif %}><span class="num">{{ c.number }}</span>{{ c.title }}</a>
+    {%- endif %}
+    {%- endfor %}
+  </nav>
+
+  <div class="rail-btm">
+    {%- for l in site.social_links %}
+    <a href="{{ l.url }}"{% unless l.url contains 'mailto:' %} rel="me noopener"{% endunless %}>{{ l.name }} ↗</a>
+    {%- endfor %}
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch colour theme">theme</button>
+  </div>
+</aside>
