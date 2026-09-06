@@ -86,6 +86,24 @@ jobs:
           grep -q 'item-no">001' _site/index.html || fail "ledger number 001 not rendered"
           ok "ledger numbers rendered"
 
+          echo "--- projects/publications ---"
+          grep -q 'Projects/Publications' _site/projects/index.html || fail "projects page not renamed"
+          grep -q 'Projects/Publications' _site/index.html || fail "home section not renamed"
+          n_pub=$(grep -c 'class="bib-no">P' _site/projects/index.html)
+          [ "$n_pub" = "5" ] || fail "expected 5 publications, got $n_pub"
+          for u in ieeexplore.ieee.org/document/11361508 10.3390/jcp5030068                    10.1049/cit2.12333 10.1007/978-981-99-8148-9_29                    2022.lrec-1.803; do
+            grep -q "$u" _site/projects/index.html || fail "missing link $u"
+          done
+          # peer-reviewed only: the two arXiv preprints must not be listed
+          if grep -qi 'arxiv' _site/projects/index.html; then
+            fail "a preprint leaked into the publications list"
+          fi
+          grep -q 'OB9X3GQAAAAJ' _site/index.html || fail "scholar link not updated"
+          if grep -q 'qc6CJjYAAAAJ' _site/index.html; then
+            fail "placeholder (Einstein) scholar link still present"
+          fi
+          ok "5 peer-reviewed publications, links resolve, section renamed"
+
           echo "--- no trace of the old theme ---"
           for s in master-home animated-background tactile categories.css; do
             if grep -rq "$s" _site --include=*.html; then

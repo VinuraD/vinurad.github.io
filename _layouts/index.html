@@ -20,11 +20,13 @@ layout: base
   {%- endif %}
   {%- endfor %}
 
-  {%- assign pubs = site.data.projects.publications | default: empty %}
-  {%- assign repos = site.data.projects.code | default: empty %}
-  {%- if pubs.size > 0 or repos.size > 0 %}
+  {%- assign pubs = site.data.projects.publications %}
+  {%- assign repos = site.data.projects.code %}
+  {%- assign npubs = pubs | size %}
+  {%- assign nrepos = repos | size %}
+  {%- if npubs > 0 or nrepos > 0 %}
   <section class="group">
-    <h2 class="group-head"><a href="{{ '/projects/' | relative_url }}">Projects</a></h2>
+    <h2 class="group-head"><a href="{{ '/projects/' | relative_url }}">Projects/Publications</a></h2>
     {%- for p in pubs limit: 3 %}
     <a class="item" href="{{ '/projects/' | relative_url }}">
       <span class="item-no">P{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>

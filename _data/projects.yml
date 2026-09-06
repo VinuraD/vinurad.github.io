@@ -4,17 +4,65 @@
 # code:         numbered R01, R02, … in the order listed.
 #
 # Every field except `title` is optional; omitted links simply don't render.
+#
+# Peer-reviewed only. Preprints without a reviewed venue are deliberately
+# not listed here (arXiv:2507.17161, arXiv:2501.07423), nor is the MSc thesis.
 
 publications:
-  # - title: "Full paper title as it appears in the proceedings"
-  #   authors: "Galwaduge, V. D., Co-author, A."
-  #   venue: "Conference or Journal Name"
-  #   year: 2026
-  #   description: "One or two lines on what the paper does."
-  #   links:
-  #     pdf: "https://…"
-  #     arxiv: "https://arxiv.org/abs/…"
-  #     code: "https://github.com/…"
+  - title: "A Novel Objective Function for Counterfactual Explanations Using Conic Optimization"
+    authors: "V. Galwaduge, R. Wijethunga, A. Sadhu, J. Samarabandu"
+    venue: "7th International Conference on Advancements in Computing (ICAC), IEEE"
+    year: 2025
+    description: >-
+      Combines two feature-space distance functions into a single counterfactual
+      objective and solves it as a quasi-convex program, benchmarked against three
+      numerical optimisation baselines on both shallow and deep classifiers.
+    links:
+      ieee: "https://ieeexplore.ieee.org/document/11361508/"
+
+  - title: "Novel Actionable Counterfactual Explanations for Intrusion Detection Using Diffusion Models"
+    authors: "V. Galwaduge, J. Samarabandu"
+    venue: "Journal of Cybersecurity and Privacy 5(3), 68"
+    year: 2025
+    description: >-
+      A tabular diffusion framework that produces plausible, diverse counterfactuals
+      for network intrusion detection and summarises them into global rules that
+      filter incoming attack queries — alongside the first comparative study of
+      counterfactual algorithms in the NIDS setting.
+    links:
+      doi: "https://doi.org/10.3390/jcp5030068"
+
+  - title: "Lexicon-based Fine-tuning of Multilingual Language Models for Low-resource Language Sentiment Analysis"
+    authors: "V. Dhananjaya, S. Ranathunga, S. Jayasena"
+    venue: "CAAI Transactions on Intelligence Technology 9(5), 1116–1125"
+    year: 2024
+    description: >-
+      An intermediate-task fine-tuning method that transfers a high-resource sentiment
+      lexicon into multilingual models, tested on three-class sentiment classification
+      in Sinhala, Tamil and Bengali.
+    links:
+      doi: "https://doi.org/10.1049/cit2.12333"
+
+  - title: "Deep Learning Based Personalized Stock Recommender System"
+    authors: "N. Wijerathne, J. Samarathunge, K. Rathnayake, S. Jayasinghe, S. Ahangama, I. Perera, V. Dhananjaya, L. Sivaneasharajah"
+    venue: "International Conference on Neural Information Processing (ICONIP), 362–374"
+    year: 2023
+    description: >-
+      A hybrid recommender that pairs collaborative and content-based filtering to
+      tailor stock suggestions to an investor's preferences and risk tolerance.
+    links:
+      doi: "https://doi.org/10.1007/978-981-99-8148-9_29"
+
+  - title: "BERTifying Sinhala — A Comprehensive Analysis of Pre-trained Language Models for Sinhala Text Classification"
+    authors: "V. Dhananjaya, P. Demotte, S. Ranathunga, S. Jayasena"
+    venue: "13th Language Resources and Evaluation Conference (LREC)"
+    year: 2022
+    description: >-
+      The first systematic comparison of multilingual and monolingual pre-trained
+      models on Sinhala text classification, with new annotated datasets released
+      for future work.
+    links:
+      acl: "https://aclanthology.org/2022.lrec-1.803/"
 
 code:
   # - title: "repository-name"

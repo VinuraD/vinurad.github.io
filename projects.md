@@ -1,6 +1,6 @@
 ---
 layout: projects
-title: "Projects"
+title: "Projects/Publications"
 permalink: /projects/
-lede: "Publications, and code that lives only on GitHub."
+lede: "Peer-reviewed publications, and code that lives only on GitHub."
 ---
