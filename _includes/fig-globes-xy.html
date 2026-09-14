@@ -1,0 +1,61 @@
+<figure class="gxy">
+<svg viewBox="0 0 560 250" width="560" role="img" aria-labelledby="gxy-t gxy-d" xmlns="http://www.w3.org/2000/svg">
+<title id="gxy-t">Two light globes, X and Y, connected by a wire</title>
+<desc id="gxy-d">Two light globes joined by a wire, each glowing at a randomly varying intensity. The left globe is labelled X and the right globe is labelled Y.</desc>
+<style>
+.gxy { color: var(--ink); --gxy-glow: #F2B544; }
+.gxy svg { max-width: 100%; height: auto; overflow: visible; }
+.gxy .line { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.gxy .base { fill: var(--paper); stroke: currentColor; stroke-width: 2; }
+.gxy .lab  { fill: currentColor; font-family: var(--serif); font-style: italic; font-size: 30px; }
+.gxy .lit  { fill: var(--gxy-glow); }
+.gxy .fil  { fill: none; stroke: var(--gxy-glow); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.gxy .a { animation: gxy-a 4.3s ease-in-out infinite; }
+.gxy .b { animation: gxy-b 6.1s ease-in-out infinite -2.2s; }
+@keyframes gxy-a {
+  0% {opacity:.15} 9% {opacity:.85} 17% {opacity:.35} 31% {opacity:.95} 44% {opacity:.2}
+  52% {opacity:.6} 68% {opacity:.1} 79% {opacity:.9} 91% {opacity:.4} 100% {opacity:.15}
+}
+@keyframes gxy-b {
+  0% {opacity:.7} 13% {opacity:.2} 22% {opacity:.9} 36% {opacity:.45} 47% {opacity:.05}
+  58% {opacity:.8} 71% {opacity:.3} 84% {opacity:1} 93% {opacity:.25} 100% {opacity:.7}
+}
+@media (prefers-reduced-motion: reduce) {
+  .gxy .a, .gxy .b { animation: none; opacity: .6; }
+}
+</style>
+<defs>
+<radialGradient id="gxy-halo">
+<stop offset="0" stop-color="#F2B544" stop-opacity=".55"/>
+<stop offset="1" stop-color="#F2B544" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<path class="line" d="M 150 184 C 150 236 410 236 410 184"/>
+<g transform="translate(150 110)">
+<circle class="a" cx="0" cy="-14" r="92" fill="url(#gxy-halo)"/>
+<path class="lit a" fill-opacity=".6" d="M -30 34 C -30 20 -46 8 -46 -14 A 46 46 0 1 1 46 -14 C 46 8 30 20 30 34 Z"/>
+<path class="line" d="M -10 34 V 4 M 10 34 V 4 M -10 4 l 5 -9 l 5 9 l 5 -9 l 5 9"/>
+<path class="fil a" d="M -10 4 l 5 -9 l 5 9 l 5 -9 l 5 9"/>
+<path class="line" d="M -30 34 C -30 20 -46 8 -46 -14 A 46 46 0 1 1 46 -14 C 46 8 30 20 30 34 Z"/>
+<rect class="base" x="-30" y="34" width="60" height="10" rx="2"/>
+<rect class="base" x="-26" y="44" width="52" height="8"/>
+<rect class="base" x="-26" y="52" width="52" height="8"/>
+<rect class="base" x="-26" y="60" width="52" height="8"/>
+<path class="base" d="M -14 68 H 14 L 6 74 H -6 Z"/>
+<text class="lab" x="-82" y="-6" text-anchor="middle">X</text>
+</g>
+<g transform="translate(410 110)">
+<circle class="b" cx="0" cy="-14" r="92" fill="url(#gxy-halo)"/>
+<path class="lit b" fill-opacity=".6" d="M -30 34 C -30 20 -46 8 -46 -14 A 46 46 0 1 1 46 -14 C 46 8 30 20 30 34 Z"/>
+<path class="line" d="M -10 34 V 4 M 10 34 V 4 M -10 4 l 5 -9 l 5 9 l 5 -9 l 5 9"/>
+<path class="fil b" d="M -10 4 l 5 -9 l 5 9 l 5 -9 l 5 9"/>
+<path class="line" d="M -30 34 C -30 20 -46 8 -46 -14 A 46 46 0 1 1 46 -14 C 46 8 30 20 30 34 Z"/>
+<rect class="base" x="-30" y="34" width="60" height="10" rx="2"/>
+<rect class="base" x="-26" y="44" width="52" height="8"/>
+<rect class="base" x="-26" y="52" width="52" height="8"/>
+<rect class="base" x="-26" y="60" width="52" height="8"/>
+<path class="base" d="M -14 68 H 14 L 6 74 H -6 Z"/>
+<text class="lab" x="82" y="-6" text-anchor="middle">Y</text>
+</g>
+</svg>
+</figure>

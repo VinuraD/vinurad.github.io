@@ -22,7 +22,7 @@ layout: base
     <span class="marg-lbl">Published</span>
     <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %b %Y" }}</time>
   </div>
-  {%- assign words = content | number_of_words %}
+  {%- assign words = content | strip_html | number_of_words %}
   {%- if words > 60 %}
   <div class="marg-blk">
     <span class="marg-lbl">Reading</span>{{ words | divided_by: 200 | plus: 1 }} min
