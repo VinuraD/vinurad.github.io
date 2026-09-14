@@ -1,8 +1,10 @@
 <script>
   window.MathJax = {
     tex: {
-      inlineMath: [['$', '$'], ['\(', '\)']],
-      displayMath: [['$$', '$$'], ['\[', '\]']],
+      // Backslashes must be doubled: in a JS string '\(' is just '(',
+      // which would make every parenthesis in the prose a math delimiter.
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
       processEscapes: true,
       processEnvironments: true,
       packages: { '[+]': ['ams'] }
