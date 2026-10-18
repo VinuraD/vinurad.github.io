@@ -53,7 +53,7 @@ layout: base
 
 <aside class="marg">
   {%- assign total = site.posts | size %}
-  <div class="marg-blk"><span class="marg-lbl">Pieces</span>{{ total }}</div>
+  <div class="marg-blk"><span class="marg-lbl">Count</span>{{ total }}</div>
   {%- for c in site.data.categories %}
   {%- assign n = site.categories[c.key] | size %}
   {%- if n > 0 %}

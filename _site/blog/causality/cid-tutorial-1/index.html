@@ -99,7 +99,7 @@
     <h1 id="introduction">Introduction</h1>
 
 <p>Let us look at an example problem involving a causal influence diagram. The problem is about an oil widlcatter. I think that this is a popular use-case/scenario in decision sciences. The decision to drill is a high risk and a highly rewarding if successful. The problem has been studied previously in publications such as Shachter et al., 2013 (https://arxiv.org/pdf/1304.3108) and Raiffa 1968 (Decision Analysis: Introductory Lectures on Choices under Uncertainty).
-Wildcatters are known as the popele who drills wildcat wells, which is hugely risky venture but gives an advantage over others, if succeed.</p>
+Wildcatters are known as the popele who drills wildcat wells, which is a hugely risky venture but gives an advantage over others, if succeed.</p>
 
 <figure>
 <img src="/assets/images/wildcat-well.png" alt="A drilling crew working on the rig floor of an oil well" />
@@ -114,7 +114,7 @@ The test can also be decided to taken or not (considering its cost). The decisio
 <figure class="cid">
 <svg viewBox="0 0 560 260" width="560" role="img" aria-labelledby="cid-t cid-d" xmlns="http://www.w3.org/2000/svg">
 <title id="cid-t">Causal influence diagram of the oil wildcatter problem</title>
-<desc id="cid-d">Decision nodes T (test) and D (drill) are rectangles, chance nodes R (test result) and O (oil) are circles, and the utility node U is a diamond. Arrows run from T to R, O to R, T to D, R to D, D to U and O to U. The arrows into D are dashed information links.</desc>
+<desc id="cid-d">Decision nodes T (test) and D (drill) are rectangles, chance nodes R (test result) and O (oil) are circles, and the utility nodes C (test cost) and U (payoff) are diamonds. Arrows run from T to R, T to C, O to R, T to D, R to D, D to U and O to U. The arrows into D are dashed information links.</desc>
 <style>
 .cid { color: var(--ink); }
 .cid svg { max-width: 100%; height: auto; overflow: visible; }
@@ -140,6 +140,7 @@ The test can also be decided to taken or not (considering its cost). The decisio
 <path class="edge info" d="M 280 98 V 176" marker-end="url(#cid-arrow)" />
 <path class="edge" d="M 316 200 H 436" marker-end="url(#cid-arrow)" />
 <path class="edge" d="M 470 98 V 166" marker-end="url(#cid-arrow)" />
+<path class="edge" d="M 90 94 V 166" marker-end="url(#cid-arrow)" />
 
 <!-- decision nodes -->
 <rect class="node dec" x="54" y="46" width="72" height="48" rx="2" />
@@ -159,12 +160,16 @@ The test can also be decided to taken or not (considering its cost). The decisio
 <text class="lab" x="470" y="78" text-anchor="middle">O</text>
 <text class="name" x="470" y="30" text-anchor="middle">oil</text>
 
-<!-- utility node -->
+<!-- utility nodes -->
+<path class="node util" d="M 90 166 L 124 200 L 90 234 L 56 200 Z" />
+<text class="lab" x="90" y="208" text-anchor="middle">C</text>
+<text class="name" x="90" y="254" text-anchor="middle">cost</text>
+
 <path class="node util" d="M 470 166 L 504 200 L 470 234 L 436 200 Z" />
 <text class="lab" x="470" y="208" text-anchor="middle">U</text>
 <text class="name" x="470" y="254" text-anchor="middle">payoff</text>
 </svg>
-<figcaption>Figure 2. Causal influence diagram of the oil wildcatter problem. Rectangles are decisions, circles are chance nodes, the diamond is the utility. Dashed arrows are information links.</figcaption>
+<figcaption>Figure 2. Causal influence diagram of the oil wildcatter problem. Rectangles are decisions, circles are chance nodes, diamonds are utilities. Dashed arrows are information links.</figcaption>
 </figure>
 
 <h1 id="the-optimal-decisions">The optimal decisions</h1>
@@ -185,7 +190,7 @@ E(U\_drill) &amp;= (-40)*0.9*0.6+100*0.1*0.4=-17.6 \\
 E(U\_not\_drill) &amp;= 0
 \end{aligned}\]
 
-<p>Here, regardless of the decision, there is always the cost of the test. Comparing these unnormalized utilities, it seems that it is the best to <em>trust the test result always</em>.</p>
+<p>Here, regardless of the decision, there is always the cost of the test (-10). Comparing these unnormalized utilities, it seems that it is the best to <em>trust the test result always</em>.</p>
 
 
   </article>

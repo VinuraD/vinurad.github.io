@@ -9,11 +9,11 @@ description: "A causal influence diagram for the oil wildcatter problem, and its
 # Introduction
 
 Let us look at an example problem involving a causal influence diagram. The problem is about an oil widlcatter. I think that this is a popular use-case/scenario in decision sciences. The decision to drill is a high risk and a highly rewarding if successful. The problem has been studied previously in publications such as Shachter et al., 2013 (https://arxiv.org/pdf/1304.3108) and Raiffa 1968 (Decision Analysis: Introductory Lectures on Choices under Uncertainty).
-Wildcatters are known as the popele who drills wildcat wells, which is hugely risky venture but gives an advantage over others, if succeed.
+Wildcatters are known as the popele who drills wildcat wells, which is a hugely risky venture but gives an advantage over others, if succeed.
 
 <figure>
 <img src="{{ '/assets/images/wildcat-well.png' | relative_url }}" alt="A drilling crew working on the rig floor of an oil well">
-<figcaption>Figure 1. A drilling crew at work on the rig floor. Image source: <a href="https://www.sciencedirect.com/topics/engineering/wildcat-wells">“Wildcat Wells”, ScienceDirect Topics, Elsevier</a> (accessed 18 Oct 2026).</figcaption>
+<figcaption>Figure 1. A drilling crew at work on the rig floor, 1944. Image source: <a href="https://www.sciencedirect.com/topics/engineering/wildcat-wells">“Wildcat Wells”, ScienceDirect Topics, Elsevier</a> (accessed 18 Oct 2026).</figcaption>
 </figure>
 
 # Problem Setup
@@ -46,7 +46,8 @@ E(U\_not\_drill) &= 0
 $$
 
 
-Here, regardless of the decision, there is always the cost of the test. Comparing these unnormalized utilities, it seems that it is the best to *trust the test result always*.
+Here, regardless of the decision, there is always the cost of the test (-10). We can also ignore it as it is common for every decision.
+Comparing these unnormalized utilities, it seems that it is the best to *trust the test result always*.
 
 
 

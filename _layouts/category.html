@@ -41,7 +41,7 @@ layout: base
 </div>
 
 <aside class="marg">
-  <div class="marg-blk"><span class="marg-lbl">Pieces</span>{{ posts | size }}</div>
+  <div class="marg-blk"><span class="marg-lbl">Count</span>{{ posts | size }}</div>
   {%- assign topics = posts | map: 'topic' | compact | uniq | sort %}
   {%- if topics.size > 0 %}
   <div class="marg-blk">
