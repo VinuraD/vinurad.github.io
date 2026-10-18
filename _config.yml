@@ -6,7 +6,6 @@ url: "https://vinurad.github.io"
 
 author:
   name: Vinura Dhananjaya Galwaduge
-  email: vgalwadu@uwo.ca
 
 # Shown in the left rail. Edit freely.
 tagline: Causal machine learning, LLMs.
@@ -16,7 +15,6 @@ social_links:
   - { name: scholar,  url: "https://scholar.google.com/citations?user=OB9X3GQAAAAJ&hl=en" }
   - { name: github,   url: "https://github.com/VinuraD" }
   - { name: medium,   url: "https://vinurad13.medium.com/" }
-  - { name: email,    url: "mailto:vgalwadu@uwo.ca" }
 
 # How many posts each category shows before the "See all" disclosure opens.
 list_cap: 5
