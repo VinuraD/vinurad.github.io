@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  // Applied before first paint so the page never flashes the wrong theme.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Graph Isomorphism in GNNs | Vinura Dhananjaya Galwaduge</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Graph Isomorphism in GNNs" />
+<meta name="author" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Canonisation, the Weisfeiler-Lehman test, and the expressive power of GNNs." />
+<meta property="og:description" content="Canonisation, the Weisfeiler-Lehman test, and the expressive power of GNNs." />
+<link rel="canonical" href="https://vinurad.github.io/blog/misc-tech/graph-isomorphism/" />
+<meta property="og:url" content="https://vinurad.github.io/blog/misc-tech/graph-isomorphism/" />
+<meta property="og:site_name" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-11-27T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Graph Isomorphism in GNNs" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vinura Dhananjaya Galwaduge"},"dateModified":"2025-11-27T00:00:00-05:00","datePublished":"2025-11-27T00:00:00-05:00","description":"Canonisation, the Weisfeiler-Lehman test, and the expressive power of GNNs.","headline":"Graph Isomorphism in GNNs","mainEntityOfPage":{"@type":"WebPage","@id":"https://vinurad.github.io/blog/misc-tech/graph-isomorphism/"},"url":"https://vinurad.github.io/blog/misc-tech/graph-isomorphism/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Vinura Dhananjaya Galwaduge" href="/feed.xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script>
+  window.MathJax = {
+    tex: {
+      // Backslashes must be doubled: in a JS string '\(' is just '(',
+      // which would make every parenthesis in the prose a math delimiter.
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      packages: { '[+]': ['ams'] }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="rail">
+  <a class="rail-id" href="/">
+    <span class="rail-name">Vinura Dhananjaya Galwaduge</span>
+    <span class="rail-role">Causal machine learning, LLMs.<br>Western University</span>
+  </a>
+
+  <nav class="rail-nav" aria-label="Primary">
+    <a href="/"><span class="num">—</span>Index</a>
+    <a href="/projects/"><span class="num">—</span>Projects/Publications</a>
+    <a href="/about/"><span class="num">—</span>About</a>
+  </nav>
+
+  <p class="rail-group">Writing</p>
+  <nav class="rail-nav" aria-label="Categories">
+    <a href="/blog/causality/"><span class="num">01</span>Causality</a>
+    <a href="/blog/misc-tech/" class="on"><span class="num">03</span>Misc-Tech</a>
+    <a href="/blog/misc-other/"><span class="num">04</span>Misc-Other</a>
+  </nav>
+
+  <div class="rail-btm">
+    <a href="https://scholar.google.com/citations?user=OB9X3GQAAAAJ&hl=en" rel="me noopener">scholar ↗</a>
+    <a href="https://github.com/VinuraD" rel="me noopener">github ↗</a>
+    <a href="https://vinurad13.medium.com/" rel="me noopener">medium ↗</a>
+    <a href="mailto:vgalwadu@uwo.ca">email ↗</a>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch colour theme">theme</button>
+  </div>
+</aside>
+
+    <main class="main" id="main">
+      <div class="col">
+  <p class="eyebrow"><a href="/blog/misc-tech/">03 — Misc-Tech</a></p>
+  <h1 class="ptitle">Graph Isomorphism in GNNs</h1>
+
+  <article class="body">
+    <h1 id="the-curious-case-of-graph-isomorphism">The curious case of graph isomorphism</h1>
+
+<p>Isomorphism of graphs denotes that there can be different permutations of graphs (i.e.- node arrangements) that are similar (equivalent, more precisely). In other terms isomorphic graphs are the same but drawn differently. Hence, such graphs would have some invariant properties such as - no. of nodes, no. of edges, node degree.
+Canonization of graphs (or, getting the canonical form of graphs, $Canon(G)$) helps identify such isomorphisms and find equivalent graphs. From a very high-level, $Canon(G)$ assigns a labeling on the vertices of graphs. Graphs belonging to a particular isomorphism class (all graphs are just permutations of each other) would only have one unique label assignment. 
+$Canon(G)$ provides a “complete, graph invariant” representation. This simply means that ensuring the canonical forms are the same, it can be guaranteed that two (or more) graphs are equivalent/isomorphic. 
+However, the complexity of $Canon(G)$ is still unknown! Hence, the same issue applies to graph isomorphism problem as well. $Canon(G)$ can be more difficult to solve than graph isomorphism problem (i.e., canonization aims to find a representation that fits an entire isomorphism class while graph isomorphism only looks to find the equivalency of two or more (countable) graphs). Heuristic tests such as Weisfeiler-Lehman (WL) test intend to solve the graph isomporphism proble,</p>
+
+<h1 id="wl-test">WL Test</h1>
+
+<p>WL test is based on color refinement [1]. Nodes in a graph are assigned a color. The nodes then aggregate its own color and neighbors’ colors throughout multiple iterations until a stable color assigment is reached. Stability is achieved when color assignment no longer changes. Two graphs are said to be isomorphic if; $WL(G_1)=WL(G_2)$.
+Several variants of WL test exist [1]. The earliest variant - 1WL can fail on certain examples such as regular graphs. Later variants such as folklore-WL succeeds in such cases [1]. However, WL test can only involve a limited number of neighboring nodes at a time (even the variants) which might have made it a weaker canonization method.</p>
+
+<h1 id="isomporphism-in-gnns">Isomporphism in GNNs</h1>
+
+<p>The ability to identify the isomorphism provides a good representation learning power to graph neural networks. A GNN ($f_\theta$) should behave;</p>
+
+\[f_\theta(G_1)=f_\theta(G_2) if
+WL(G_1)=WL(G_2)\]
+
+<p>If this happens, it also means that $G_1$ and $G_2$ are equivalent. Coming from graph isomporphism and canonical forms, we know that only two isomorphic graphs can have the same canonical (or the weaker WL) representation. If the GNN can behave like a WL test, this means that different graphs (equivalent or not) can be identified correctly. In other words, such a GNN would learn meaningful embeddings of graphs. Graph Isomorphism Network (GIN) is an example of a GNN that has this capability.</p>
+
+<h2 id="references">References</h2>
+
+<p>[1]-A SHORT TUTORIAL ON THE WEISFEILER-LEHMAN TEST AND ITS VARIANTS, Huang and Villar, 2022 (https://arxiv.org/pdf/2201.07083).</p>
+
+  </article>
+</div>
+
+<aside class="marg">
+  <div class="marg-blk">
+    <span class="marg-lbl">No.</span>007
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Published</span>
+    <time datetime="2025-11-27T00:00:00-05:00">27 Nov 2025</time>
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Reading</span>3 min
+  </div>
+  <div class="marg-blk"><span class="marg-lbl">Topic</span>Graph & Geometry</div>
+  <div class="marg-blk marg-nav">
+    <span class="marg-lbl">Nearby</span><a href="/blog/causality/causality-1/">↑ Causality and ML-1</a><a href="/blog/misc-tech/market-making-avellaneda-stoikov/">↓ Market making with Avellaneda and Stoikov</a>
+  </div>
+</aside>
+
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var b = document.getElementById('theme-toggle');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var root = document.documentElement;
+        var now = root.getAttribute('data-theme');
+        if (!now) {
+          now = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var next = now === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

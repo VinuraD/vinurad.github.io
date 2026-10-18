@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  // Applied before first paint so the page never flashes the wrong theme.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Misc-Tech | Vinura Dhananjaya Galwaduge</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Misc-Tech" />
+<meta name="author" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Notes and writeups on causal machine learning, large language models, and assorted technical work." />
+<meta property="og:description" content="Notes and writeups on causal machine learning, large language models, and assorted technical work." />
+<link rel="canonical" href="https://vinurad.github.io/blog/misc-tech/" />
+<meta property="og:url" content="https://vinurad.github.io/blog/misc-tech/" />
+<meta property="og:site_name" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Misc-Tech" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Vinura Dhananjaya Galwaduge"},"description":"Notes and writeups on causal machine learning, large language models, and assorted technical work.","headline":"Misc-Tech","url":"https://vinurad.github.io/blog/misc-tech/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Vinura Dhananjaya Galwaduge" href="/feed.xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script>
+  window.MathJax = {
+    tex: {
+      // Backslashes must be doubled: in a JS string '\(' is just '(',
+      // which would make every parenthesis in the prose a math delimiter.
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      packages: { '[+]': ['ams'] }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="rail">
+  <a class="rail-id" href="/">
+    <span class="rail-name">Vinura Dhananjaya Galwaduge</span>
+    <span class="rail-role">Causal machine learning, LLMs.<br>Western University</span>
+  </a>
+
+  <nav class="rail-nav" aria-label="Primary">
+    <a href="/"><span class="num">—</span>Index</a>
+    <a href="/projects/"><span class="num">—</span>Projects/Publications</a>
+    <a href="/about/"><span class="num">—</span>About</a>
+  </nav>
+
+  <p class="rail-group">Writing</p>
+  <nav class="rail-nav" aria-label="Categories">
+    <a href="/blog/causality/"><span class="num">01</span>Causality</a>
+    <a href="/blog/misc-tech/" class="on"><span class="num">03</span>Misc-Tech</a>
+    <a href="/blog/misc-other/"><span class="num">04</span>Misc-Other</a>
+  </nav>
+
+  <div class="rail-btm">
+    <a href="https://scholar.google.com/citations?user=OB9X3GQAAAAJ&hl=en" rel="me noopener">scholar ↗</a>
+    <a href="https://github.com/VinuraD" rel="me noopener">github ↗</a>
+    <a href="https://vinurad13.medium.com/" rel="me noopener">medium ↗</a>
+    <a href="mailto:vgalwadu@uwo.ca">email ↗</a>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch colour theme">theme</button>
+  </div>
+</aside>
+
+    <main class="main" id="main">
+      <div class="col">
+  <p class="eyebrow"><a href="/">Index</a></p>
+  <h1 class="h1">03 — Misc-Tech</h1><p class="lede">Assorted technical notes.</p>
+
+  
+
+    <section class="group">
+      <h2 class="group-head">Generative Modeling</h2>
+      <div class="list"><a class="item" href="/blog/misc-tech/expectation-maximization/">
+  <span class="item-no">005</span>
+  <span class="item-body">
+    <span class="item-title">Expectation Maximization</span>
+    <span class="item-desc">A fundamental algorithm for parameter estimation in probabilistic models with latent variables.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2024-12-30T00:00:00-05:00">2024.12.30</time></span>
+</a>
+<a class="item" href="/blog/misc-tech/practical-vae/">
+  <span class="item-no">003</span>
+  <span class="item-body">
+    <span class="item-title">Practical VAE</span>
+    <span class="item-desc">Practical considerations and challenges when working with variational auto-encoders.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2024-11-03T00:00:00-04:00">2024.11.03</time></span>
+</a>
+<a class="item" href="/blog/misc-tech/training-cvae/">
+  <span class="item-no">001</span>
+  <span class="item-body">
+    <span class="item-title">Training CVAE</span>
+    <span class="item-desc">Techniques for training CVAEs on tabular data.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2024-09-25T00:00:00-04:00">2024.09.25</time></span>
+</a>
+</div>
+    </section>
+    <section class="group">
+      <h2 class="group-head">Graph & Geometry</h2>
+      <div class="list"><a class="item" href="/blog/misc-tech/hodge-laplacian/">
+  <span class="item-no">011</span>
+  <span class="item-body">
+    <span class="item-title">Hodge Laplacian Operator</span>
+    <span class="item-desc">Simplices, boundary operators, and generalising the graph Laplacian.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2025-12-25T00:00:00-05:00">2025.12.25</time></span>
+</a>
+<a class="item" href="/blog/misc-tech/graph-isomorphism/">
+  <span class="item-no">007</span>
+  <span class="item-body">
+    <span class="item-title">Graph Isomorphism in GNNs</span>
+    <span class="item-desc">Canonisation, the Weisfeiler-Lehman test, and the expressive power of GNNs.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2025-11-27T00:00:00-05:00">2025.11.27</time></span>
+</a>
+</div>
+    </section>
+    <section class="group">
+      <h2 class="group-head">Infrastructure</h2>
+      <div class="list"><a class="item" href="/blog/misc-tech/fail2ban/">
+  <span class="item-no">013</span>
+  <span class="item-body">
+    <span class="item-title">Fail2Ban</span>
+    <span class="item-desc">Blocking repeated unauthorised connection attempts on a server.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2026-01-31T00:00:00-05:00">2026.01.31</time></span>
+</a>
+<a class="item" href="/blog/misc-tech/gcp-backups/">
+  <span class="item-no">012</span>
+  <span class="item-body">
+    <span class="item-title">GCP Backups</span>
+    <span class="item-desc">Imaging a running server and handling disk encryption keys on GCP.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2026-01-21T00:00:00-05:00">2026.01.21</time></span>
+</a>
+</div>
+    </section>
+    <section class="group">
+      <h2 class="group-head">Quant Finance</h2>
+      <div class="list"><a class="item" href="/blog/misc-tech/market-making-avellaneda-stoikov/">
+  <span class="item-no">006</span>
+  <span class="item-body">
+    <span class="item-title">Market making with Avellaneda and Stoikov</span>
+    <span class="item-desc">High-level intuition of market making, its goals, and the Avellaneda-Stoikov algorithm.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2025-09-13T00:00:00-04:00">2025.09.13</time></span>
+</a>
+</div>
+    </section>
+    <section class="group">
+      <h2 class="group-head">Security</h2>
+      <div class="list"><a class="item" href="/blog/misc-tech/pwnable-random/">
+  <span class="item-no">014</span>
+  <span class="item-body">
+    <span class="item-title">pwnable.kr - random</span>
+    <span class="item-desc">Solving the random challenge from Toddler's Bottle.
+    </span>
+  </span>
+  <span class="item-date"><time datetime="2026-02-15T00:00:00-05:00">2026.02.15</time></span>
+</a>
+</div>
+    </section></div>
+
+<aside class="marg">
+  <div class="marg-blk"><span class="marg-lbl">Pieces</span>9</div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Topics</span>
+    <p class="marg-note">Generative Modeling (3)</p>
+    <p class="marg-note">Graph & Geometry (2)</p>
+    <p class="marg-note">Infrastructure (2)</p>
+    <p class="marg-note">Quant Finance (1)</p>
+    <p class="marg-note">Security (1)</p>
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Span</span>2024–2026
+  </div>
+</aside>
+
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var b = document.getElementById('theme-toggle');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var root = document.documentElement;
+        var now = root.getAttribute('data-theme');
+        if (!now) {
+          now = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var next = now === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -397,6 +397,7 @@ img { max-width: 100%; height: auto; }
 
 /* figures */
 .body figure { margin: 1.9rem 0; text-align: center; }
+.body figure img { margin: 0 auto; }
 .body figcaption {
   font-family: var(--mono); font-size: .65rem;
   color: var(--muted); margin-top: .7rem;

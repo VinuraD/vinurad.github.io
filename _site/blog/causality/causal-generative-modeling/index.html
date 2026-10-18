@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  // Applied before first paint so the page never flashes the wrong theme.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Causal Generative Modeling | Vinura Dhananjaya Galwaduge</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Causal Generative Modeling" />
+<meta name="author" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A short introduction to incorporating causality in generative modeling." />
+<meta property="og:description" content="A short introduction to incorporating causality in generative modeling." />
+<link rel="canonical" href="https://vinurad.github.io/blog/causality/causal-generative-modeling/" />
+<meta property="og:url" content="https://vinurad.github.io/blog/causality/causal-generative-modeling/" />
+<meta property="og:site_name" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-12-23T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Causal Generative Modeling" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vinura Dhananjaya Galwaduge"},"dateModified":"2024-12-23T00:00:00-05:00","datePublished":"2024-12-23T00:00:00-05:00","description":"A short introduction to incorporating causality in generative modeling.","headline":"Causal Generative Modeling","mainEntityOfPage":{"@type":"WebPage","@id":"https://vinurad.github.io/blog/causality/causal-generative-modeling/"},"url":"https://vinurad.github.io/blog/causality/causal-generative-modeling/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Vinura Dhananjaya Galwaduge" href="/feed.xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script>
+  window.MathJax = {
+    tex: {
+      // Backslashes must be doubled: in a JS string '\(' is just '(',
+      // which would make every parenthesis in the prose a math delimiter.
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      packages: { '[+]': ['ams'] }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="rail">
+  <a class="rail-id" href="/">
+    <span class="rail-name">Vinura Dhananjaya Galwaduge</span>
+    <span class="rail-role">Causal machine learning, LLMs.<br>Western University</span>
+  </a>
+
+  <nav class="rail-nav" aria-label="Primary">
+    <a href="/"><span class="num">—</span>Index</a>
+    <a href="/projects/"><span class="num">—</span>Projects/Publications</a>
+    <a href="/about/"><span class="num">—</span>About</a>
+  </nav>
+
+  <p class="rail-group">Writing</p>
+  <nav class="rail-nav" aria-label="Categories">
+    <a href="/blog/causality/" class="on"><span class="num">01</span>Causality</a>
+    <a href="/blog/misc-tech/"><span class="num">03</span>Misc-Tech</a>
+    <a href="/blog/misc-other/"><span class="num">04</span>Misc-Other</a>
+  </nav>
+
+  <div class="rail-btm">
+    <a href="https://scholar.google.com/citations?user=OB9X3GQAAAAJ&hl=en" rel="me noopener">scholar ↗</a>
+    <a href="https://github.com/VinuraD" rel="me noopener">github ↗</a>
+    <a href="https://vinurad13.medium.com/" rel="me noopener">medium ↗</a>
+    <a href="mailto:vgalwadu@uwo.ca">email ↗</a>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch colour theme">theme</button>
+  </div>
+</aside>
+
+    <main class="main" id="main">
+      <div class="col">
+  <p class="eyebrow"><a href="/blog/causality/">01 — Causality</a></p>
+  <h1 class="ptitle">Causal Generative Modeling</h1>
+
+  <article class="body">
+    <h2 id="background-and-motivation">Background and Motivation</h2>
+<p>*This post is an excerpt of concepts related to the use of causality in generative modeling, based on the literature.</p>
+
+<p>Generative modeling has become prominent due to several factors.</p>
+<ol>
+  <li>It can estimate data densities based on some given data.</li>
+  <li>It can generate new data.</li>
+</ol>
+
+<p>However, generative modeling falls behind in certain aspects.</p>
+<ol>
+  <li>Ability to extrapolate can be weak - this also relates to its generalization ability, or the robustness of the model. Generative models can perform weak when presented with out-of-distribution data from what it has seen during training (the same goes with generation of new extrapolated data).</li>
+  <li>Depend on spurious feature correlations - Most ML models rely on feature correlations to recognize patterns. This can result in the models depending on spurious correlations. [This behavior can be attributed to that most of the ML models falling into associative category in Pearl’s causal hierarchy. This category can only do inference based on associations, not on cause-effect understanding. This lays a foundation for the motivation of using causality in generative modeling]</li>
+</ol>
+
+<p>Generative modeling has one core task which helps in proper data generation - representation learning. Optimum representations should be meaningful, interpretable, and disentagled. Here, disentangled representations give us independent factors of variation of the data such that we can vary one factor of variation while keeping others fixed (a similar concept is ICA (Independent Component Analysis)). 
+However, most models suffer from a problem called unidentifiability problem. Unidentifiability problem refers to the fact that we are unable to find these independent sources of variation from the given datasets. There are several proposals to learn such disentangled representations ($\beta$-VAE is a well-known example) but they suffer from identifiability problem or they rely on assumptions such as data is IID and factors of variation are independent. Although we use the independence of factors to help in the idenitifiability problem, it may not be realistic as most real-world data can have interdependent factors of variation. Hence, a different perspective of the problem can help us reach a more pragmatic approach; using causal models.</p>
+
+<h2 id="causal-models-and-representation-learning">Causal Models and representation learning</h2>
+<p>Causal models represent the cause-effect relationships between variables governing a data generating process. The variables can be endogeneous (observed), exogeneous (unobserved), and noise terms. Usually these relationships can be represented in the form of a graph (called Structural Causal Model (SCM)). A typical SCM is shown in Figure 1. In fact, we can see that independent factor scenario is a special case of SCMs (Figure 2)(Z represent exogeneous variables, and X represent endogeneous).</p>
+
+<p><img src="/assets/images/scm1.png" alt="Figure 1" /></p>
+
+<p><img src="/assets/images/scm2.png" alt="Figure 2" /></p>
+
+<p>We then come up with a paradigm called Causal representation learning (CRL). The goal of CRL is to learn factors that are causally related, and meaningful (interpretability comes free if we meet these criteria).</p>
+
+<p>We can try to understand why causal models would help us to overcome the two challenges in generative modeing mentioned above.</p>
+<ol>
+  <li>The causal model is (almost) invariant to distribution shifts. In fact, the principle of “Sparse mechanism shift” says that small distribution shifts affect sparsely on causal variables (or precisely the “Markov factorization” of causal variables).</li>
+  <li>Representations now won’t rely on spurious correlations as the SCM provides the proper feature relationships or cause-effect information.</li>
+</ol>
+
+<h2 id="challenges-for-crl">Challenges for CRL</h2>
+<p>CRL also faces an identifiability problem. Note that, in traiditional settings it was about identifying properly disentangled factors. In CRL, disentanglement does not imply variable independence (as it cannot be, because we already treat variables have inter-dependencies). CRL disentanglement means that we identify independent causal mechanisms (or simply, functions that link causal variables to their parents; f:causes-&gt;effects). [This is defined in a principal called “Independent Causal Mechanisms (ICM)”.]. The identifiability problem can come in when we are unable to identify such causal mechanisms, the causal structure and the involved causal variables. There are different proposals to handle this identifiability issues.
+Evaluation metrics such as Disentanglement, Completeness and Informativeness (DCI), and Causal Disentanglement Score (CDS) are used to measure the goodness of CRL.</p>
+
+<h2 id="controllable-counterfactual-generation">Controllable Counterfactual generation</h2>
+<p>Counterfactual generation is of major importance as a method of data augmentation, a gauge of reasoning ability and a mode of explanation (my main interest lies in counterfactual generation too). Controllable counterfactual generation is a case where we can intervene on desired attributes to generate counterfactual data samples using generative modeling, even in totally novel contexts (e.g. for image domain - Lions with green mane). Most of the controllable counterfactual generation proposals are based on GANs and Difussion models, and for image data. Some of such models are,</p>
+<ol>
+  <li>CausalGAN (Kocaoglu et al., 2018)</li>
+  <li>DCM (Diffusion based Causal Model; Chao et al. (2023))</li>
+  <li>VACA (Graph Variational AE based; Sánchez-Martin et al. (2022))</li>
+</ol>
+
+<p>Axiomatic evaluation of counterfactuals can properly evaluate generated counterfactuals according to the counterfactual principles; effectiveness (whether interventions properly affect target variables), composition (identity intervention renders all variables unaffected ), reversibility (counterfactual and factual mapping is deterministic and invertible)</p>
+
+<h3 id="references">References</h3>
+<ul>
+  <li>[1] - Emerging Synergies in Causality and Deep Generative Models: A Survey. Zhou and Xie, 2023</li>
+  <li>[2] - From Identifiable Causal Representations to Controllable Counterfactual Generation: A Survey on Causal Generative Modeling. Komanduri et al., 2024</li>
+</ul>
+
+  </article>
+</div>
+
+<aside class="marg">
+  <div class="marg-blk">
+    <span class="marg-lbl">No.</span>004
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Published</span>
+    <time datetime="2024-12-23T00:00:00-05:00">23 Dec 2024</time>
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Reading</span>5 min
+  </div>
+  <div class="marg-blk marg-nav">
+    <span class="marg-lbl">Nearby</span><a href="/blog/misc-tech/expectation-maximization/">↑ Expectation Maximization</a><a href="/blog/misc-tech/practical-vae/">↓ Practical VAE</a>
+  </div>
+</aside>
+
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var b = document.getElementById('theme-toggle');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var root = document.documentElement;
+        var now = root.getAttribute('data-theme');
+        if (!now) {
+          now = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var next = now === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

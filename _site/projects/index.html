@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  // Applied before first paint so the page never flashes the wrong theme.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Projects/Publications | Vinura Dhananjaya Galwaduge</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Projects/Publications" />
+<meta name="author" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Notes and writeups on causal machine learning, large language models, and assorted technical work." />
+<meta property="og:description" content="Notes and writeups on causal machine learning, large language models, and assorted technical work." />
+<link rel="canonical" href="https://vinurad.github.io/projects/" />
+<meta property="og:url" content="https://vinurad.github.io/projects/" />
+<meta property="og:site_name" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Projects/Publications" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Vinura Dhananjaya Galwaduge"},"description":"Notes and writeups on causal machine learning, large language models, and assorted technical work.","headline":"Projects/Publications","url":"https://vinurad.github.io/projects/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Vinura Dhananjaya Galwaduge" href="/feed.xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script>
+  window.MathJax = {
+    tex: {
+      // Backslashes must be doubled: in a JS string '\(' is just '(',
+      // which would make every parenthesis in the prose a math delimiter.
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      packages: { '[+]': ['ams'] }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="rail">
+  <a class="rail-id" href="/">
+    <span class="rail-name">Vinura Dhananjaya Galwaduge</span>
+    <span class="rail-role">Causal machine learning, LLMs.<br>Western University</span>
+  </a>
+
+  <nav class="rail-nav" aria-label="Primary">
+    <a href="/"><span class="num">—</span>Index</a>
+    <a href="/projects/" class="on" aria-current="page"><span class="num">—</span>Projects/Publications</a>
+    <a href="/about/"><span class="num">—</span>About</a>
+  </nav>
+
+  <p class="rail-group">Writing</p>
+  <nav class="rail-nav" aria-label="Categories">
+    <a href="/blog/causality/"><span class="num">01</span>Causality</a>
+    <a href="/blog/misc-tech/"><span class="num">03</span>Misc-Tech</a>
+    <a href="/blog/misc-other/"><span class="num">04</span>Misc-Other</a>
+  </nav>
+
+  <div class="rail-btm">
+    <a href="https://scholar.google.com/citations?user=OB9X3GQAAAAJ&hl=en" rel="me noopener">scholar ↗</a>
+    <a href="https://github.com/VinuraD" rel="me noopener">github ↗</a>
+    <a href="https://vinurad13.medium.com/" rel="me noopener">medium ↗</a>
+    <a href="mailto:vgalwadu@uwo.ca">email ↗</a>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch colour theme">theme</button>
+  </div>
+</aside>
+
+    <main class="main" id="main">
+      <div class="col">
+  <p class="eyebrow">Index</p>
+  <h1 class="h1">Projects/Publications</h1><p class="lede">Peer-reviewed publications, and code that lives only on GitHub.</p>
+
+  
+
+  <section class="group">
+    <h2 class="group-head">Publications</h2>
+    <div class="bib">
+      <div class="bib-item">
+        <span class="bib-no">P01</span>
+        <div>
+          <span class="bib-title">A Novel Objective Function for Counterfactual Explanations Using Conic Optimization</span><span class="bib-meta">V. Galwaduge, R. Wijethunga, A. Sadhu, J. Samarabandu</span>
+          <span class="bib-meta"><em>7th International Conference on Advancements in Computing (ICAC), IEEE</em>, 2025</span><p class="bib-desc">Combines two feature-space distance functions into a single counterfactual objective and solves it as a quasi-convex program, benchmarked against three numerical optimisation baselines on both shallow and deep classifiers.</p>
+          <span class="bib-links"><a href="https://ieeexplore.ieee.org/document/11361508/">ieee</a></span>
+        </div>
+      </div>
+      <div class="bib-item">
+        <span class="bib-no">P02</span>
+        <div>
+          <span class="bib-title">Novel Actionable Counterfactual Explanations for Intrusion Detection Using Diffusion Models</span><span class="bib-meta">V. Galwaduge, J. Samarabandu</span>
+          <span class="bib-meta"><em>Journal of Cybersecurity and Privacy 5(3), 68</em>, 2025</span><p class="bib-desc">A tabular diffusion framework that produces plausible, diverse counterfactuals for network intrusion detection and summarises them into global rules that filter incoming attack queries — alongside the first comparative study of counterfactual algorithms in the NIDS setting.</p>
+          <span class="bib-links"><a href="https://doi.org/10.3390/jcp5030068">doi</a></span>
+        </div>
+      </div>
+      <div class="bib-item">
+        <span class="bib-no">P03</span>
+        <div>
+          <span class="bib-title">Lexicon-based Fine-tuning of Multilingual Language Models for Low-resource Language Sentiment Analysis</span><span class="bib-meta">V. Dhananjaya, S. Ranathunga, S. Jayasena</span>
+          <span class="bib-meta"><em>CAAI Transactions on Intelligence Technology 9(5), 1116–1125</em>, 2024</span><p class="bib-desc">An intermediate-task fine-tuning method that transfers a high-resource sentiment lexicon into multilingual models, tested on three-class sentiment classification in Sinhala, Tamil and Bengali.</p>
+          <span class="bib-links"><a href="https://doi.org/10.1049/cit2.12333">doi</a></span>
+        </div>
+      </div>
+      <div class="bib-item">
+        <span class="bib-no">P04</span>
+        <div>
+          <span class="bib-title">Deep Learning Based Personalized Stock Recommender System</span><span class="bib-meta">N. Wijerathne, J. Samarathunge, K. Rathnayake, S. Jayasinghe, S. Ahangama, I. Perera, V. Dhananjaya, L. Sivaneasharajah</span>
+          <span class="bib-meta"><em>International Conference on Neural Information Processing (ICONIP), 362–374</em>, 2023</span><p class="bib-desc">A hybrid recommender that pairs collaborative and content-based filtering to tailor stock suggestions to an investor's preferences and risk tolerance.</p>
+          <span class="bib-links"><a href="https://doi.org/10.1007/978-981-99-8148-9_29">doi</a></span>
+        </div>
+      </div>
+      <div class="bib-item">
+        <span class="bib-no">P05</span>
+        <div>
+          <span class="bib-title">BERTifying Sinhala — A Comprehensive Analysis of Pre-trained Language Models for Sinhala Text Classification</span><span class="bib-meta">V. Dhananjaya, P. Demotte, S. Ranathunga, S. Jayasena</span>
+          <span class="bib-meta"><em>13th Language Resources and Evaluation Conference (LREC)</em>, 2022</span><p class="bib-desc">The first systematic comparison of multilingual and monolingual pre-trained models on Sinhala text classification, with new annotated datasets released for future work.</p>
+          <span class="bib-links"><a href="https://aclanthology.org/2022.lrec-1.803/">acl</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<aside class="marg"><div class="marg-blk"><span class="marg-lbl">Publications</span>5</div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Elsewhere</span>
+    <p class="marg-note"><a href="https://scholar.google.com/citations?user=OB9X3GQAAAAJ&hl=en">scholar ↗</a></p>
+    <p class="marg-note"><a href="https://github.com/VinuraD">github ↗</a></p>
+    <p class="marg-note"><a href="https://vinurad13.medium.com/">medium ↗</a></p>
+    <p class="marg-note"><a href="mailto:vgalwadu@uwo.ca">email ↗</a></p>
+  </div>
+</aside>
+
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var b = document.getElementById('theme-toggle');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var root = document.documentElement;
+        var now = root.getAttribute('data-theme');
+        if (!now) {
+          now = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var next = now === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

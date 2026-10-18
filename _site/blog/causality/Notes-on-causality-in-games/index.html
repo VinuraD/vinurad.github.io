@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  // Applied before first paint so the page never flashes the wrong theme.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Notes on causality in games | Vinura Dhananjaya Galwaduge</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Notes on causality in games" />
+<meta name="author" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Notes and writeups on causal machine learning, large language models, and assorted technical work." />
+<meta property="og:description" content="Notes and writeups on causal machine learning, large language models, and assorted technical work." />
+<link rel="canonical" href="https://vinurad.github.io/blog/causality/Notes-on-causality-in-games/" />
+<meta property="og:url" content="https://vinurad.github.io/blog/causality/Notes-on-causality-in-games/" />
+<meta property="og:site_name" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-09-30T00:00:00-04:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Notes on causality in games" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vinura Dhananjaya Galwaduge"},"dateModified":"2026-09-30T00:00:00-04:00","datePublished":"2026-09-30T00:00:00-04:00","description":"Notes and writeups on causal machine learning, large language models, and assorted technical work.","headline":"Notes on causality in games","mainEntityOfPage":{"@type":"WebPage","@id":"https://vinurad.github.io/blog/causality/Notes-on-causality-in-games/"},"url":"https://vinurad.github.io/blog/causality/Notes-on-causality-in-games/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Vinura Dhananjaya Galwaduge" href="/feed.xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script>
+  window.MathJax = {
+    tex: {
+      // Backslashes must be doubled: in a JS string '\(' is just '(',
+      // which would make every parenthesis in the prose a math delimiter.
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      packages: { '[+]': ['ams'] }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="rail">
+  <a class="rail-id" href="/">
+    <span class="rail-name">Vinura Dhananjaya Galwaduge</span>
+    <span class="rail-role">Causal machine learning, LLMs.<br>Western University</span>
+  </a>
+
+  <nav class="rail-nav" aria-label="Primary">
+    <a href="/"><span class="num">—</span>Index</a>
+    <a href="/projects/"><span class="num">—</span>Projects/Publications</a>
+    <a href="/about/"><span class="num">—</span>About</a>
+  </nav>
+
+  <p class="rail-group">Writing</p>
+  <nav class="rail-nav" aria-label="Categories">
+    <a href="/blog/causality/" class="on"><span class="num">01</span>Causality</a>
+    <a href="/blog/misc-tech/"><span class="num">03</span>Misc-Tech</a>
+    <a href="/blog/misc-other/"><span class="num">04</span>Misc-Other</a>
+  </nav>
+
+  <div class="rail-btm">
+    <a href="https://scholar.google.com/citations?user=OB9X3GQAAAAJ&hl=en" rel="me noopener">scholar ↗</a>
+    <a href="https://github.com/VinuraD" rel="me noopener">github ↗</a>
+    <a href="https://vinurad13.medium.com/" rel="me noopener">medium ↗</a>
+    <a href="mailto:vgalwadu@uwo.ca">email ↗</a>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch colour theme">theme</button>
+  </div>
+</aside>
+
+    <main class="main" id="main">
+      <div class="col">
+  <p class="eyebrow"><a href="/blog/causality/">01 — Causality</a></p>
+  <h1 class="ptitle">Notes on causality in games</h1>
+
+  <article class="body">
+    <h1 id="introduction">Introduction</h1>
+<p>This is an evolving note, primarily based on the work <a href="https://www.sciencedirect.com/science/article/pii/S0004370223000656?via%3Dihub">“Reasoning about causality in games (Hammond et al.)”</a>.</p>
+
+<h1 id="key-points">Key points</h1>
+
+<p>The parts up until section 2.2 describes the problem and an introduction to Structural Causal Models (SCM) and Pearl’s hierarchy of causality.</p>
+
+<h2 id="maids">MAIDs</h2>
+
+<p>An ID (Influence Diagram) generalizes a BN by introducing decision and utility variables. A MAID (Multi Agent ID) extends it to a scenario with multiple agents. At the core, this captures an EFG in a more compact way (the branches in EFG captured in the nodes and their associated CPDs). There are chance nodes, decision nodes and utility nodes.  The decision nodes describe decisions (or actions) made by agents, either as deterministic rules or stochastic rules. A decision rule is denoted as a CPD (below),</p>
+
+\[\pi_D(D|Pa_D)\]
+
+<p>A Nash Equilibrium describes the best response decision rule of an agent to those of other agents, and the parameters of the game (chance variables).</p>
+
+<h1 id="s-relevance-and-s-reacheabiliy">s-relevance and s-reacheabiliy</h1>
+<p>s=strategically. s-relevance tells if a particular decision rule impact another decision rule, i.e- changing one gives incentive to change the other or strategically relevant. s-reacheability tests if a 
+This has a similar notion to d-connectedness in causal graphs.</p>
+
+<h1 id="mechanized-maids">Mechanized MAIDs</h1>
+
+<ol>
+  <li>Call $V$ the variables (nodes) in MAIDs. Mechanized MAIDS (MMAIDs) add a new variable set $M$, and $m_v in M$ are parents of each $v \in V$ (where necessary).</li>
+  <li>Each $m_v$ is either a decision rule variable $\Pi_D$ or a parameter variable $\Theta_V$.</li>
+  <li>A mechanized graph $\mathcal mG$ is simply the MAID plus $m_v$ and extra edges from $M_V \to V$ and edges within $m_v$ ($E’$, not self loops, but may have cycles).</li>
+  <li>The decision rule variables are policies that determine the actions (decisions) at the decision nodes (or the probability distribution of them). For example, a policy tells to always take a particular decision if some condition is met.</li>
+</ol>
+
+\[P(d|pa_D,\Pi_D=\pi_D)=\pi_D(d|pa_D)\]
+
+<p>With this addition, we can intervene over the CPDs of the decision variables, unlike the given CPDs in MAIDs.</p>
+<ol>
+  <li>The mechanisms that sets utilities and the chance are parameters; $dom(U) \in \mathbb R$.</li>
+</ol>
+
+<p>The addition of new variables now allow to model the changes of an agent’s policy (how they pick decisions) and the impact of those changes to other agent’s policies. For example, $\Pi_D=\hat\pi_D$ can be a certain rule, where the agent ‘always go regardless of their laziness’ (the example EFG describes the chance variable parameterizing lazy/hardworking).</p>
+
+<h1 id="independent-mmaids">Independent MMAIDs</h1>
+
+<ol>
+  <li>Denoted by $\mathcal m \perp G$, removes all $E’$ edges. Mechanisms are independent (i.e. similar to non-requisite variables in BN).</li>
+  <li>Strategic play in games break this independence. Because in reality agents respond to the changes in mechanisms.</li>
+</ol>
+
+<h1 id="rationality-relation">Rationality relation</h1>
+
+<p>Described as a function $r_D(pa_{\Pi_D})$, describes the set of acceptable decision rules $\pi_D$</p>
+
+<h1 id="r-rational-response-and-outcome">R-rational response and outcome</h1>
+
+<p>R-rational response is any $\pi_D \in r_D(pa_{\Pi_D})$. R-rational outcome describes a profile <strong>$\pi$</strong>, in which every $\pi_D$ is the rational response.</p>
+
+<h1 id="pycid-examples">PyCID Examples</h1>
+
+<p>The repository https://github.com/causalincentives/pycid has implemented the MMAIDs and contains a few examples.</p>
+
+  </article>
+</div>
+
+<aside class="marg">
+  <div class="marg-blk">
+    <span class="marg-lbl">No.</span>018
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Published</span>
+    <time datetime="2026-09-30T00:00:00-04:00">30 Sep 2026</time>
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Reading</span>3 min
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Series</span>
+    Causality and ML
+    <ol class="marg-series">
+      <li><a href="/blog/causality/causality-2/">Causality and ML-2</a></li>
+      <li><a href="/blog/causality/causality-1/">Causality and ML-1</a></li>
+      <li><a href="/blog/causality/causality-3/">Causality and ML-3</a></li>
+      <li><a href="/blog/causality/Identifiability-of-Causes/">Identifiability of Causes</a></li>
+      <li><span class="here">Notes on causality in games</span></li>
+      <li><a href="/blog/causality/cid-tutorial-1/">CID Tutorial 1</a></li>
+    </ol>
+  </div>
+  <div class="marg-blk marg-nav">
+    <span class="marg-lbl">Nearby</span><a href="/blog/causality/cid-tutorial-1/">↑ CID Tutorial 1</a><a href="/blog/Connections-of-OPE-to-Causal-Theory/">↓ Connections Of Ope To Causal Theory</a>
+  </div>
+</aside>
+
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var b = document.getElementById('theme-toggle');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var root = document.documentElement;
+        var now = root.getAttribute('data-theme');
+        if (!now) {
+          now = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var next = now === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

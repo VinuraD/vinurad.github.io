@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  // Applied before first paint so the page never flashes the wrong theme.
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Market making with Avellaneda and Stoikov | Vinura Dhananjaya Galwaduge</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Market making with Avellaneda and Stoikov" />
+<meta name="author" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="High-level intuition of market making, its goals, and the Avellaneda-Stoikov algorithm." />
+<meta property="og:description" content="High-level intuition of market making, its goals, and the Avellaneda-Stoikov algorithm." />
+<link rel="canonical" href="https://vinurad.github.io/blog/misc-tech/market-making-avellaneda-stoikov/" />
+<meta property="og:url" content="https://vinurad.github.io/blog/misc-tech/market-making-avellaneda-stoikov/" />
+<meta property="og:site_name" content="Vinura Dhananjaya Galwaduge" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-09-13T00:00:00-04:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Market making with Avellaneda and Stoikov" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vinura Dhananjaya Galwaduge"},"dateModified":"2025-09-13T00:00:00-04:00","datePublished":"2025-09-13T00:00:00-04:00","description":"High-level intuition of market making, its goals, and the Avellaneda-Stoikov algorithm.","headline":"Market making with Avellaneda and Stoikov","mainEntityOfPage":{"@type":"WebPage","@id":"https://vinurad.github.io/blog/misc-tech/market-making-avellaneda-stoikov/"},"url":"https://vinurad.github.io/blog/misc-tech/market-making-avellaneda-stoikov/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Vinura Dhananjaya Galwaduge" href="/feed.xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script>
+  window.MathJax = {
+    tex: {
+      // Backslashes must be doubled: in a JS string '\(' is just '(',
+      // which would make every parenthesis in the prose a math delimiter.
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      packages: { '[+]': ['ams'] }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="rail">
+  <a class="rail-id" href="/">
+    <span class="rail-name">Vinura Dhananjaya Galwaduge</span>
+    <span class="rail-role">Causal machine learning, LLMs.<br>Western University</span>
+  </a>
+
+  <nav class="rail-nav" aria-label="Primary">
+    <a href="/"><span class="num">—</span>Index</a>
+    <a href="/projects/"><span class="num">—</span>Projects/Publications</a>
+    <a href="/about/"><span class="num">—</span>About</a>
+  </nav>
+
+  <p class="rail-group">Writing</p>
+  <nav class="rail-nav" aria-label="Categories">
+    <a href="/blog/causality/"><span class="num">01</span>Causality</a>
+    <a href="/blog/misc-tech/" class="on"><span class="num">03</span>Misc-Tech</a>
+    <a href="/blog/misc-other/"><span class="num">04</span>Misc-Other</a>
+  </nav>
+
+  <div class="rail-btm">
+    <a href="https://scholar.google.com/citations?user=OB9X3GQAAAAJ&hl=en" rel="me noopener">scholar ↗</a>
+    <a href="https://github.com/VinuraD" rel="me noopener">github ↗</a>
+    <a href="https://vinurad13.medium.com/" rel="me noopener">medium ↗</a>
+    <a href="mailto:vgalwadu@uwo.ca">email ↗</a>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch colour theme">theme</button>
+  </div>
+</aside>
+
+    <main class="main" id="main">
+      <div class="col">
+  <p class="eyebrow"><a href="/blog/misc-tech/">03 — Misc-Tech</a></p>
+  <h1 class="ptitle">Market making with Avellaneda and Stoikov</h1>
+
+  <article class="body">
+    <h1 id="introduction">Introduction</h1>
+
+<p>The main goal of this article is to provide a high-level intuition of market making (MM), its goals, and the Avellaneda-Stoikov algorithm for MM. I believe the structure of this article aligns with how I came to understand MM and the surrounding concepts and it does not follow any formal structure.</p>
+
+<h2 id="preamble">Preamble</h2>
+
+<p>To start with, think of traders whose main goal is to make profits. There are many ways to do this.</p>
+
+<ol>
+  <li>Keep a stock (an inventory) of some assets (e.g., gold) and hope to gain some profits later by selling them (“long”).</li>
+  <li>Traders can lend their assets (e.g., gold) and make some money out of it.
+…
+k. Traders do not plan to keep an inventory of assets. They’d rather buy them for a low amount and sell them for a higher amount, repeatedly.</li>
+</ol>
+
+<p>In the MM context, it is the kth category that is of focus. Traders of this nature consider keeping an inventory risky. A number of good examples can be found in the crypto market. People keep inventories of coins to find their value crash later. Instead, it is preferred to do quick (or high frequency) trades of buy-low, sell-high nature and make profits.</p>
+
+<h2 id="the-dynamic-nature-of-markets">The dynamic nature of markets</h2>
+
+<p>Modern stock markets, crypto markets (or broadly, securities markets) are excessively dynamic in nature. Their order books (or Limit Order Books - LOBs) move at high frequency, which requires a similar pace in placing a trader’s buy-sell orders.</p>
+
+<h2 id="a-simple-strategy">A simple strategy</h2>
+
+<p>A trader would buy securities some amount below the mid price in the LOB (bid price), and sell at some amount above the mid price (ask price). Determining these two prices would determine the amount of profits. A naive strategy would be to set these prices by subtracting or adding a fixed amount to the mid price.</p>
+
+\[P_a = s_t + \delta\]
+
+\[P_b = s_t - \delta\]
+
+<h2 id="avellaneda-and-stoikov-algorithm">Avellaneda and Stoikov algorithm</h2>
+
+<p>The paper by Avellaneda and Stoikov shows a better strategy than the simple strategy. Well, how is it better? This algorithm (let’s call AS) aims to control the inventory - hence it can control the risk. Before that, let us look at how having an inventory can pose risk. This is also called “inventory risk”.</p>
+
+<h3 id="inventory-risk">Inventory risk</h3>
+
+<p>Example 1: The trader holds the assets (long) and never sell and the mid price goes down. Now the asset loses its value.<br />
+Example 2: The trader does not hold all the assets, but keeps a little amount (let’s say they keep 50% and sell the rest). Still, if the mid price goes down, the asset loses its value and it may overpower the profits gained ($P\&amp;L &lt; 0$).</p>
+
+<p>There may be instances that holding the asset would yield better gains in the future. But that is not the focus of the trader’s strategy we discussed in the preamble.</p>
+
+<p>Another related term is “transaction risks”. When the trader has posted both buy and sell orders, there is a chance that incoming orders may fulfill only one of them (or one type) for a long period.<br />
+If only buy orders are filled - inventory risk<br />
+If only sell orders are filled - the trader may lose profit (do not have enough inventory to keep the trade going on).</p>
+
+<p>We can see a pitfall of the simple strategy here. As it is not sensitive to the state of the inventory, it is prone to inventory risk. (i.e., we may keep filling our bids or buy orders).</p>
+
+<p>AS provides workarounds for this. The main derivations from the paper are:</p>
+
+\[r = s_t - \beta q\]
+
+\[p_b = r + \delta^*\]
+
+\[p_a = r - \delta^*\]
+
+<p>The amount $2\delta^<em>$ is called the optimal spread. Before stating how $\beta$ and $\delta^</em>$ are calculated, it is of our interest to know what they do. $q$ represents the current inventory (or the number of assets the trader has). The main objective is to control $q$ close to $0$ as much as possible. Hence, $r$ would be greater than $s$ (the mid price) if we have $q &lt; 0$. This means we are inclined to buy a bit higher than the mid price (increases our buying chances). If it’s $q &gt; 0$, we are trying to sell a bit lower than $s_t$ (increases our selling chances).</p>
+
+<p>However, this alone will not yield profits (we are buying high and selling low). Hence, we make adjustments to our $r$ by $\delta^*$ amounts, which gives us optimal ask and bid prices.</p>
+
+<p>Another key intuition to have is that the higher the $\delta^*$ is, the higher the chance that the orders do not get filled. This comes from the fact that the majority of the other orders would be closer to the mid price.</p>
+
+<p>From the paper:</p>
+
+\[\beta = \gamma \sigma^2 (T - t)\]
+
+\[\delta^* = \frac{1}{2} \gamma \sigma^2 (T - t) + \frac{1}{\gamma} \ln\left(1 + \frac{\gamma}{k}\right)\]
+
+<p>$\gamma$ is the risk aversion degree (inventory risk) set by the trader. The higher the value, the more risk averse. $\gamma_{min} = 0$ which is risk neutral. $\sigma$ denotes the volatility of the asset. $T$ and $t$ denote the end time (the trader trades) and the current time, respectively. $k$ is the liquidity parameter of the LOB. This measures the intensity of the arrival of orders that can fill the trader’s bids and asks. If the $k$ value is high, then there is a higher chance that the order does not get filled if $\delta^*$ is also high.</p>
+
+<h3 id="key-high-level-takeaways-from-the-formulae">Key high level takeaways from the formulae</h3>
+
+<ol>
+  <li>The reservation price ($r$) makes an adjustment to the mid price, toward the direction opposite to the current inventory state.</li>
+  <li>With this, $r$ makes sure that the inventory is close to 0.</li>
+  <li>At the beginning of the trade ($t=0$), this adjustment is the highest. As $t \to T$, the adjustment becomes weaker, making $r$ closer to $s_T$. This makes the limit orders toward the end almost like market orders, ensuring that they get fulfilled and no inventory would be left at the end.</li>
+  <li>If an inventory risk arises in the middle of the process, $r$ makes sure that the assets are prone to liquidation (more selling and less buying).</li>
+  <li>If more sell orders are fulfilled, then $r$ does the opposite of 4 by trying to buy more assets and making resistance to sell.</li>
+  <li>The more the volatility of the asset, the more the spread. It is similar to expecting more compensation for longing/shorting a volatile asset.</li>
+</ol>
+
+<h2 id="results-from-the-paper">Results from the paper</h2>
+
+<p>The numerical simulations from the paper show the advantage of the algorithm in controlling the risk by controlling the inventory. This is evident from the lower standard deviation of P&amp;L with the AS algorithm than the simple strategy. In other words, the simple strategy may give very high profits or very high losses.</p>
+
+<p><img src="/assets/images/image.png" alt="Figure from Avallaneda, Marco and Stoikov, Sasha, 2008." /><br />
+<img src="/assets/images/image-1.png" alt="Figure from Avallaneda, Marco and Stoikov, Sasha, 2008." /><br />
+<img src="/assets/images/image-2.png" alt="Figure from Avallaneda, Marco and Stoikov, Sasha, 2008." /></p>
+
+<p>The role of $\gamma$ is important as well. As $\gamma \to 0$, AS gradually becomes similar to the simple strategy.</p>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li>High-frequency trading in a limit order book, Avallaneda, Marco and Stoikov, Sasha, 2008. (<a href="http://www.tandfonline.com/doi/abs/10.1080/14697680701381228">http://www.tandfonline.com/doi/abs/10.1080/14697680701381228</a>)</li>
+</ol>
+
+  </article>
+</div>
+
+<aside class="marg">
+  <div class="marg-blk">
+    <span class="marg-lbl">No.</span>006
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Published</span>
+    <time datetime="2025-09-13T00:00:00-04:00">13 Sep 2025</time>
+  </div>
+  <div class="marg-blk">
+    <span class="marg-lbl">Reading</span>6 min
+  </div>
+  <div class="marg-blk"><span class="marg-lbl">Topic</span>Quant Finance</div>
+  <div class="marg-blk marg-nav">
+    <span class="marg-lbl">Nearby</span><a href="/blog/misc-tech/graph-isomorphism/">↑ Graph Isomorphism in GNNs</a><a href="/blog/misc-tech/expectation-maximization/">↓ Expectation Maximization</a>
+  </div>
+</aside>
+
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var b = document.getElementById('theme-toggle');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var root = document.documentElement;
+        var now = root.getAttribute('data-theme');
+        if (!now) {
+          now = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        var next = now === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>
