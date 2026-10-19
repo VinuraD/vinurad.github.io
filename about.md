@@ -26,7 +26,3 @@ redirect_from:
 <!-- TODO — degrees, institutions, years. -->
 
 *To be written.*
-
-## Contact
-
-The quickest way to reach me is by [email](mailto:vgalwadu@uwo.ca).

@@ -27,7 +27,7 @@
 
   <div class="rail-btm">
     {%- for l in site.social_links %}
-    <a href="{{ l.url }}"{% unless l.url contains 'mailto:' %} rel="me noopener"{% endunless %}>{{ l.name }} ↗</a>
+    <a href="{{ l.url }}" rel="me noopener">{{ l.name }} ↗</a>
     {%- endfor %}
     <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch colour theme">theme</button>
   </div>
